@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Code, X } from 'lucide-react';
 import { skillCategories } from '../data/portfolioData';
-import { FaReact, FaNodeJs, FaJs, FaJava, FaPython, FaAws, FaDocker, FaGitAlt } from 'react-icons/fa';
-import { SiTypescript, SiTailwindcss, SiSocketdotio, SiMongodb, SiRedis, SiGithubactions, SiVite, SiLangchain, SiCplusplus, SiFramer } from 'react-icons/si';
+import { FaReact, FaNodeJs, FaJs, FaJava, FaPython, FaAws, FaDocker, FaGitAlt, FaHtml5, FaCss3Alt } from 'react-icons/fa';
+import { SiTypescript, SiTailwindcss, SiSocketdotio, SiMongodb, SiRedis, SiGithubactions, SiVite, SiLangchain, SiCplusplus, SiFramer, SiExpress } from 'react-icons/si';
 import { BiLogoPostgresql } from 'react-icons/bi';
 import { GrGraphQl } from 'react-icons/gr';
 
 const skillIconMap: Record<string, React.ComponentType<{ size?: number }>> = {
   FaReact,
+  FaHtml5,
+  FaCss3Alt,
+  SiExpress,
   SiTypescript,
   SiTailwindcss,
   SiFramer,
@@ -49,7 +52,7 @@ export const SkillsSection: React.FC = () => {
 
   const categories = ['All', ...skillCategories.map((cat) => cat.category)];
 
-  // Pure derived filtering logic (never mutates original array)
+  // Pure derived filtering logic
   const filteredSkills = allSkills.filter((skill) => {
     const matchesCategory =
       selectedCategory === 'All' || skill.categoryName === selectedCategory;
@@ -62,32 +65,32 @@ export const SkillsSection: React.FC = () => {
   });
 
   return (
-    <section id="skills" className="py-24 px-6 border-t border-gray-200/80 dark:border-brand-border/40 relative max-w-7xl mx-auto">
+    <section id="skills" className="py-20 px-6 border-t border-slate-200/80 dark:border-slate-800/80 relative max-w-6xl mx-auto">
       {/* Section Heading */}
-      <div className="flex flex-col space-y-4 mb-16 text-center">
-        <h2 className="text-xs uppercase tracking-widest font-extrabold text-brand-primary dark:text-brand-accent">Skills</h2>
-        <p className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-brand-text">Core Competence Grid</p>
-        <div className="w-12 h-1 bg-brand-primary mx-auto rounded-full"></div>
+      <div className="flex flex-col space-y-3 mb-12 text-center">
+        <h2 className="text-xs uppercase tracking-widest font-extrabold text-blue-600 dark:text-blue-400">Skills</h2>
+        <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Core Competence Grid</p>
+        <div className="w-12 h-1 bg-blue-600 dark:bg-blue-500 mx-auto rounded-full"></div>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-4 justify-between items-center mb-12">
+      <div className="flex flex-col md:flex-row gap-4 justify-between items-center mb-10">
         {/* Controlled Search Input */}
         <div className="relative w-full md:w-80">
-          <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-gray-400 dark:text-brand-muted" />
+          <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
           <input
             type="text"
             placeholder="Search skills (e.g. React, Java)..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-white dark:bg-brand-card/30 border border-gray-200 dark:border-brand-border rounded-xl pl-10 pr-9 py-3 text-sm text-gray-900 dark:text-brand-text placeholder:text-gray-400 dark:placeholder:text-brand-muted focus:outline-none focus:border-brand-primary shadow-xs dark:shadow-none transition-colors"
+            className="input-field pl-10 pr-9 py-2.5 text-xs sm:text-sm"
           />
           {searchTerm && (
             <button
               onClick={() => setSearchTerm('')}
-              className="absolute right-3 top-3.5 text-gray-400 dark:text-brand-muted hover:text-gray-700 dark:hover:text-brand-text focus:outline-none text-xs font-bold bg-gray-100 dark:bg-brand-border/40 hover:bg-gray-200 dark:hover:bg-brand-border/80 w-4 h-4 rounded-full flex items-center justify-center transition-colors cursor-pointer"
+              className="absolute right-3 top-3.5 text-slate-400 hover:text-slate-700 dark:hover:text-white focus:outline-none text-xs font-bold w-4 h-4 rounded-full flex items-center justify-center transition-colors cursor-pointer"
               title="Clear Search"
             >
-              <X className="w-3 h-3" />
+              <X className="w-3.5 h-3.5" />
             </button>
           )}
         </div>
@@ -100,8 +103,8 @@ export const SkillsSection: React.FC = () => {
               onClick={() => setSelectedCategory(cat)}
               className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap cursor-pointer transition-all border ${
                 selectedCategory === cat
-                  ? 'bg-brand-primary border-brand-primary text-white shadow-md shadow-brand-primary/20'
-                  : 'bg-white dark:bg-brand-card/25 border-gray-200 dark:border-brand-border text-gray-700 dark:text-brand-muted hover:text-gray-900 dark:hover:text-brand-text hover:border-brand-primary/50 dark:hover:border-brand-accent/50 shadow-xs dark:shadow-none'
+                  ? 'bg-blue-600 border-blue-600 text-white shadow-sm'
+                  : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:border-blue-500/40 shadow-sm'
               }`}
             >
               {cat}
@@ -113,65 +116,64 @@ export const SkillsSection: React.FC = () => {
       {/* Skills Grid */}
       <motion.div
         layout
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-3 px-1"
       >
         <AnimatePresence mode="popLayout">
           {filteredSkills.map((skill, index) => (
             <motion.div
               key={skill.name}
               layout
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
+              exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2, delay: index * 0.02 }}
-              whileHover={{ y: -6, transition: { duration: 0.15 } }}
-              className="bg-white dark:bg-brand-card/20 border border-gray-200/90 dark:border-brand-border/60 hover:border-brand-primary/50 dark:hover:border-brand-accent/40 rounded-2xl p-5 flex flex-col justify-between shadow-sm hover:shadow-md dark:shadow-md relative group overflow-hidden transition-all duration-200"
+              className="h-full"
             >
-              <div className="absolute -top-12 -right-12 w-24 h-24 bg-brand-primary/5 rounded-full blur-xl group-hover:bg-brand-primary/10 dark:group-hover:bg-brand-accent/15 transition-all"></div>
-
-              <div className="space-y-4">
-                <div className="flex justify-between items-start">
-                  <div className="w-10 h-10 rounded-xl bg-gray-50 dark:bg-brand-bg flex items-center justify-center border border-gray-200/80 dark:border-brand-border/30 text-brand-primary dark:text-brand-accent group-hover:text-brand-primary transition-colors shadow-2xs dark:shadow-none">
-                    {renderSkillIcon(skill.iconName)}
+              <div className="skill-card h-full">
+                <div className="space-y-3">
+                  <div className="flex justify-between items-start">
+                    <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200/80 dark:border-slate-700/80 text-blue-600 dark:text-blue-400">
+                      {renderSkillIcon(skill.iconName)}
+                    </div>
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-750 px-2 py-0.5 rounded font-semibold uppercase">
+                      {skill.experience}
+                    </span>
                   </div>
-                  <span className="text-[10px] text-gray-600 dark:text-brand-muted bg-gray-100/90 dark:bg-brand-bg border border-gray-200/80 dark:border-brand-border/60 px-2 py-0.5 rounded-md font-semibold dark:font-medium uppercase">
-                    {skill.experience}
-                  </span>
-                </div>
 
-                <div>
-                  <h3 className="font-bold text-gray-900 dark:text-brand-text text-sm sm:text-base group-hover:text-brand-primary dark:group-hover:text-brand-accent transition-colors">
-                    {skill.name}
-                  </h3>
-                  <p className="text-[10px] text-gray-500 dark:text-brand-muted uppercase tracking-wider font-medium">{skill.categoryName}</p>
-                </div>
-              </div>
-
-              <div className="mt-6 space-y-3">
-                <div className="space-y-1">
-                  <div className="flex justify-between text-[10px]">
-                    <span className="text-gray-500 dark:text-brand-muted">Proficiency</span>
-                    <span className="text-brand-primary dark:text-brand-accent font-bold">{skill.level}%</span>
-                  </div>
-                  <div className="w-full bg-gray-100 dark:bg-brand-bgSec/60 border border-gray-200/70 dark:border-brand-border/40 rounded-full h-1.5">
-                    <div className="bg-brand-primary dark:bg-brand-primary group-hover:bg-brand-primary dark:group-hover:bg-brand-accent h-full rounded-full transition-colors" style={{ width: `${skill.level}%` }}></div>
+                  <div>
+                    <h3 className="font-bold text-slate-900 dark:text-white text-sm sm:text-base">
+                      {skill.name}
+                    </h3>
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider font-medium">{skill.categoryName}</p>
                   </div>
                 </div>
 
-                {skill.projectsUsed.length > 0 && (
-                  <div className="flex flex-wrap gap-1 pt-2 border-t border-gray-100 dark:border-brand-border/20">
-                    {skill.projectsUsed.slice(0, 2).map((proj) => (
-                      <span key={proj} className="text-[9px] text-brand-primary dark:text-brand-muted bg-blue-50/80 dark:bg-brand-bg border border-blue-100/80 dark:border-transparent px-1.5 py-0.5 rounded font-medium">
-                        {proj}
-                      </span>
-                    ))}
-                    {skill.projectsUsed.length > 2 && (
-                      <span className="text-[9px] text-brand-primary dark:text-brand-accent font-bold px-1 py-0.5">
-                        +{skill.projectsUsed.length - 2} more
-                      </span>
-                    )}
+                <div className="mt-5 space-y-3">
+                  <div className="space-y-1">
+                    <div className="flex justify-between text-[10px]">
+                      <span className="text-slate-500 dark:text-slate-400">Proficiency</span>
+                      <span className="text-blue-600 dark:text-blue-400 font-bold">{skill.level}%</span>
+                    </div>
+                    <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                      <div className="bg-blue-600 dark:bg-blue-500 h-full rounded-full transition-all" style={{ width: `${skill.level}%` }}></div>
+                    </div>
                   </div>
-                )}
+
+                  {skill.projectsUsed.length > 0 && (
+                    <div className="flex flex-wrap gap-1 pt-2 border-t border-slate-100 dark:border-slate-800">
+                      {skill.projectsUsed.slice(0, 2).map((proj) => (
+                        <span key={proj} className="text-[9px] text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/40 border border-blue-200/80 dark:border-blue-900/40 px-1.5 py-0.5 rounded font-medium">
+                          {proj}
+                        </span>
+                      ))}
+                      {skill.projectsUsed.length > 2 && (
+                        <span className="text-[9px] text-blue-600 dark:text-blue-400 font-bold px-1 py-0.5">
+                          +{skill.projectsUsed.length - 2} more
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
             </motion.div>
           ))}
@@ -183,21 +185,21 @@ export const SkillsSection: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-brand-card/20 border border-gray-200 dark:border-brand-border/60 rounded-2xl p-10 text-center space-y-4 max-w-md mx-auto my-8 shadow-md dark:shadow-lg"
+          className="card p-8 text-center space-y-3 max-w-md mx-auto my-8"
         >
-          <div className="w-12 h-12 rounded-full bg-blue-50 dark:bg-brand-primary/10 border border-blue-100 dark:border-brand-primary/20 flex items-center justify-center text-brand-primary dark:text-brand-accent mx-auto">
-            <Search className="w-6 h-6" />
+          <div className="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-400 mx-auto">
+            <Search className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-base font-bold text-gray-900 dark:text-brand-text">No Skills Found</h3>
-            <p className="text-xs text-gray-600 dark:text-brand-muted mt-1">
-              No skills found matching <span className="text-brand-primary dark:text-brand-accent font-mono font-semibold">"{searchTerm}"</span>
-              {selectedCategory !== 'All' && <span> in <span className="font-semibold text-gray-900 dark:text-brand-text">{selectedCategory}</span></span>}.
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">No Skills Found</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              No skills match <span className="font-semibold text-blue-600 dark:text-blue-400">"{searchTerm}"</span>
+              {selectedCategory !== 'All' && <span> in <span className="font-semibold text-slate-900 dark:text-white">{selectedCategory}</span></span>}.
             </p>
           </div>
           <button
             onClick={() => { setSearchTerm(''); setSelectedCategory('All'); }}
-            className="px-4 py-2 bg-brand-primary text-white dark:bg-brand-primary/10 dark:hover:bg-brand-primary/20 dark:text-brand-accent border border-brand-primary dark:border-brand-primary/30 rounded-xl text-xs font-bold transition-colors cursor-pointer shadow-sm dark:shadow-none"
+            className="btn-primary py-1.5 px-3 text-xs"
           >
             Reset Search & Filters
           </button>

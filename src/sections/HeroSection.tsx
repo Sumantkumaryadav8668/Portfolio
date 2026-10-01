@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { ArrowRight, Download, Mail, Sparkles, Folder, Award, Code } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { SiLeetcode } from 'react-icons/si';
@@ -39,33 +39,6 @@ export const HeroSection: React.FC = () => {
     return () => clearTimeout(timer);
   }, [displayText, isDeleting, titleIndex]);
 
-  const ref = useRef<HTMLDivElement>(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const springConfig = { damping: 25, stiffness: 150 };
-  const dX = useSpring(mouseX, springConfig);
-  const dY = useSpring(mouseY, springConfig);
-
-  const cardRotateX = useTransform(dY, [-300, 300], [10, -10]);
-  const cardRotateY = useTransform(dX, [-300, 300], [-10, 10]);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const x = e.clientX - rect.left - width / 2;
-    const y = e.clientY - rect.top - height / 2;
-    mouseX.set(x);
-    mouseY.set(y);
-  };
-
-  const handleMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-  };
-
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -85,61 +58,56 @@ export const HeroSection: React.FC = () => {
   return (
     <section
       id="hero"
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="relative min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden px-6 max-w-7xl mx-auto"
+      className="relative min-h-[85vh] flex items-center justify-center pt-20 pb-16 px-6 max-w-6xl mx-auto"
     >
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-primary/10 rounded-full blur-[100px] pointer-events-none animate-pulse"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-accent/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full items-center relative z-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full items-center">
+        {/* Left Content Column */}
         <div className="lg:col-span-7 flex flex-col space-y-6 text-left">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center space-x-2 bg-brand-primary/10 border border-brand-primary/20 rounded-full px-4 py-1.5 w-fit"
+            transition={{ duration: 0.4 }}
+            className="inline-flex items-center space-x-2 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 rounded-full px-3.5 py-1.5 w-fit"
           >
-            <Sparkles className="w-4 h-4 text-brand-accent" />
-            <span className="text-xs font-semibold text-brand-accent tracking-wide uppercase">Open for new roles</span>
+            <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+            <span className="text-xs font-semibold text-blue-700 dark:text-blue-300 tracking-wide uppercase">Open for new roles</span>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
             className="space-y-2"
           >
-            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-brand-text">
-              Hi, I'm <span className="bg-gradient-to-r from-brand-primary via-brand-accent to-brand-success bg-clip-text text-transparent">Sumant Kumar Yadav</span>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+              Hi, I'm <span className="text-blue-600 dark:text-blue-400">Sumant Kumar Yadav</span>
             </h1>
             <div className="h-10 sm:h-12 flex items-center">
-              <span className="text-xl sm:text-3xl font-bold text-brand-muted">A dedicated </span>
-              <span className="text-xl sm:text-3xl font-bold text-brand-accent border-r-2 border-brand-accent ml-2 pr-1 animate-pulse">
+              <span className="text-xl sm:text-2xl font-bold text-slate-600 dark:text-slate-400">A dedicated </span>
+              <span className="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400 border-r-2 border-blue-600 dark:border-blue-400 ml-2 pr-1 animate-pulse">
                 {displayText}
               </span>
             </div>
           </motion.div>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-base sm:text-lg text-brand-muted max-w-xl leading-relaxed"
+            transition={{ duration: 0.4, delay: 0.2 }}
+            className="text-base text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed"
           >
-            I create modern full-stack web applications using MongoDB, Express.js, React.js, and Node.js. My focus is on building responsive interfaces, secure backend systems, and efficient REST APIs that solve real-world problems.
+            I build modern full-stack web applications using MongoDB, Express.js, React.js, and Node.js. Focused on clean architecture, responsive interfaces, and reliable REST APIs that deliver real impact.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-wrap gap-4 pt-2"
+            transition={{ duration: 0.4, delay: 0.3 }}
+            className="flex flex-wrap gap-3 pt-2"
           >
             <button
               onClick={() => scrollToSection('projects')}
-              className="btn btn-primary px-6 py-3 h-auto rounded-xl text-white font-semibold flex items-center space-x-2 border-0 shadow-lg shadow-brand-primary/20 normal-case hover:scale-105 transition-all cursor-pointer"
+              className="btn-primary"
             >
               <span>View Projects</span>
               <ArrowRight className="w-4 h-4" />
@@ -147,14 +115,14 @@ export const HeroSection: React.FC = () => {
             <a
               href="/resume.pdf"
               download="Sumant_Yadav_Resume.pdf"
-              className="btn bg-brand-card/50 hover:bg-brand-card text-brand-text border border-brand-border px-6 py-3 h-auto rounded-xl font-semibold flex items-center space-x-2 normal-case hover:scale-105 transition-all cursor-pointer"
+              className="btn-secondary"
             >
               <Download className="w-4 h-4" />
               <span>Resume</span>
             </a>
             <button
               onClick={() => scrollToSection('contact')}
-              className="btn btn-ghost text-brand-accent hover:bg-brand-primary/10 px-6 py-3 h-auto rounded-xl font-semibold normal-case cursor-pointer"
+              className="btn-ghost text-blue-600 dark:text-blue-400"
             >
               <span>Contact Me</span>
             </button>
@@ -163,10 +131,10 @@ export const HeroSection: React.FC = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex items-center space-x-4 pt-4 text-brand-muted"
+            transition={{ duration: 0.4, delay: 0.4 }}
+            className="flex items-center space-x-4 pt-4 text-slate-500 dark:text-slate-400"
           >
-          <span className="text-xs uppercase font-bold tracking-wider">Connect:</span>
+            <span className="text-xs uppercase font-bold tracking-wider">Connect:</span>
             <div className="flex space-x-2">
               {[
                 { icon: <FaGithub className="w-4 h-4" />, link: 'https://github.com/Sumantkumaryadav8668', label: 'GitHub' },
@@ -180,7 +148,7 @@ export const HeroSection: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={item.label}
-                  className="w-9 h-9 rounded-xl flex items-center justify-center border border-brand-border/40 hover:border-brand-accent hover:text-brand-text hover:bg-brand-card/20 transition-all"
+                  className="w-9 h-9 rounded-xl flex items-center justify-center border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all shadow-sm"
                 >
                   {item.icon}
                 </a>
@@ -189,62 +157,63 @@ export const HeroSection: React.FC = () => {
           </motion.div>
         </div>
 
-        <div className="lg:col-span-5 flex justify-center items-center relative">
+        {/* Right Product UI Card Column */}
+        <div className="lg:col-span-5 flex justify-center items-center">
           <motion.div
-            style={{ rotateX: cardRotateX, rotateY: cardRotateY, transformStyle: 'preserve-3d' }}
-            className="w-full max-w-sm aspect-square bg-gradient-to-tr from-brand-card/60 to-brand-card/25 rounded-3xl border border-brand-border/50 p-6 flex flex-col justify-between relative shadow-2xl backdrop-blur-sm"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="w-full max-w-sm card card-elevated card-hover p-6 flex flex-col justify-between space-y-6"
           >
-            <div className="absolute inset-0 rounded-3xl border border-brand-accent/20 pointer-events-none"></div>
-
-            <div className="flex justify-between items-center">
-              <div className="flex space-x-1">
-                <span className="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
-                <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
-                <span className="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
+            <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800/80 pb-3">
+              <div className="flex space-x-1.5">
+                <span className="w-3 h-3 rounded-full bg-rose-500/80"></span>
+                <span className="w-3 h-3 rounded-full bg-amber-500/80"></span>
+                <span className="w-3 h-3 rounded-full bg-emerald-500/80"></span>
               </div>
-              <Sparkles className="w-5 h-5 text-brand-accent animate-pulse" />
+              <div className="flex items-center space-x-1.5 text-xs text-slate-500 dark:text-slate-400 font-mono">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>developer.profile</span>
+              </div>
             </div>
 
-            <div className="space-y-4 my-auto">
-              <div className="flex items-center space-x-3 bg-brand-bg/50 border border-brand-border/40 rounded-xl p-3">
-                <div className="w-10 h-10 rounded-lg bg-brand-primary/15 flex items-center justify-center text-brand-primary">
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-xl p-3">
+                <div className="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-950/60 flex items-center justify-center text-blue-600 dark:text-blue-400">
                   <Folder className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-[10px] text-brand-muted uppercase font-bold block">Featured Projects</span>
-                  <span className="text-base font-bold text-brand-text">4 Completed</span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold block">Featured Projects</span>
+                  <span className="text-sm font-bold text-slate-900 dark:text-white">4 Completed & Major</span>
                 </div>
               </div>
 
-              <div className="flex items-center space-x-3 bg-brand-bg/50 border border-brand-border/40 rounded-xl p-3">
-                <div className="w-10 h-10 rounded-lg bg-brand-success/15 flex items-center justify-center text-brand-success">
+              <div className="flex items-center space-x-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-xl p-3">
+                <div className="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
                   <Award className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-[10px] text-brand-muted uppercase font-bold block">Certifications</span>
-                  <span className="text-base font-bold text-brand-text">3 Verified</span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold block">Certifications</span>
+                  <span className="text-sm font-bold text-slate-900 dark:text-white">3 Verified</span>
                 </div>
               </div>
 
-              <div className="flex items-center space-x-3 bg-brand-bg/50 border border-brand-border/40 rounded-xl p-3">
-                <div className="w-10 h-10 rounded-lg bg-brand-accent/15 flex items-center justify-center text-brand-accent">
+              <div className="flex items-center space-x-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-xl p-3">
+                <div className="w-10 h-10 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
                   <Code className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-[10px] text-brand-muted uppercase font-bold block">GitHub Contributions</span>
-                  <span className="text-base font-bold text-brand-text">300+ Commits</span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold block">Coding Commits</span>
+                  <span className="text-sm font-bold text-slate-900 dark:text-white">300+ GitHub Commits</span>
                 </div>
               </div>
             </div>
 
-            <div className="text-[10px] text-brand-muted font-mono flex justify-between items-center">
-              <span>SYSTEM: ONLINE</span>
-              <span>v1.0.0</span>
+            <div className="pt-2 border-t border-slate-100 dark:border-slate-800/80 text-[10px] text-slate-400 dark:text-slate-500 font-mono flex justify-between items-center">
+              <span>STATUS: ONLINE</span>
+              <span>v2.0 PRO</span>
             </div>
           </motion.div>
-
-          <div className="absolute -z-10 w-24 h-24 bg-brand-primary/20 rounded-full top-0 right-10 blur-xl animate-bounce"></div>
-          <div className="absolute -z-10 w-32 h-32 bg-brand-accent/20 rounded-full -bottom-5 -left-5 blur-xl"></div>
         </div>
       </div>
     </section>

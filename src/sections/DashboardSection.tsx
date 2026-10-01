@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GitCommit, Activity, Flame, FolderGit2, BookOpen, RotateCw } from 'lucide-react';
 
-// Single clear configuration object for current learning focus
 const CURRENT_LEARNING_CONFIG = {
   title: 'Current Learning',
   value: 'System & Distributed Design',
@@ -68,15 +67,15 @@ export const DashboardSection: React.FC = () => {
   const getColorClass = (level: number) => {
     switch (level) {
       case 1:
-        return 'bg-emerald-950 border-emerald-900/30';
+        return 'bg-emerald-200 dark:bg-emerald-950 border-emerald-300 dark:border-emerald-900/30';
       case 2:
-        return 'bg-emerald-800 border-emerald-700/30';
+        return 'bg-emerald-300 dark:bg-emerald-800 border-emerald-400 dark:border-emerald-700/30';
       case 3:
-        return 'bg-emerald-600 border-emerald-500/30';
+        return 'bg-emerald-400 dark:bg-emerald-600 border-emerald-500 dark:border-emerald-500/30';
       case 4:
-        return 'bg-emerald-400 border-emerald-300/30';
+        return 'bg-emerald-500 dark:bg-emerald-400 border-emerald-600 dark:border-emerald-300/30';
       default:
-        return 'bg-brand-bgSec/60 border-brand-border/40';
+        return 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700/40';
     }
   };
 
@@ -89,25 +88,23 @@ export const DashboardSection: React.FC = () => {
     : [];
 
   return (
-    <section id="dashboard" className="py-24 px-6 border-t border-brand-border/40 relative max-w-7xl mx-auto">
-      <div className="flex flex-col space-y-4 mb-16 text-center">
-        <h2 className="text-xs uppercase tracking-widest font-extrabold text-brand-accent">Dashboard</h2>
-        <p className="text-3xl sm:text-4xl font-extrabold text-brand-text">Developer Activity Engine</p>
-        <div className="w-12 h-1 bg-brand-primary mx-auto rounded-full"></div>
+    <section id="dashboard" className="py-20 px-6 border-t border-slate-200/80 dark:border-slate-800/80 relative max-w-6xl mx-auto">
+      <div className="flex flex-col space-y-3 mb-12 text-center">
+        <h2 className="text-xs uppercase tracking-widest font-extrabold text-blue-600 dark:text-blue-400">Dashboard</h2>
+        <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Developer Activity Engine</p>
+        <div className="w-12 h-1 bg-blue-600 dark:bg-blue-500 mx-auto rounded-full"></div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <div className="lg:col-span-8 bg-brand-card/15 border border-brand-border/60 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl pointer-events-none"></div>
-
-          <div className="flex items-center justify-between">
+        <div className="lg:col-span-8 card card-elevated p-6 space-y-5">
+          <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/50 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
                 <Flame className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-brand-text">GitHub Contribution Heatmap</h3>
-                <p className="text-xs text-brand-muted">
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">GitHub Contribution Heatmap</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   {loading
                     ? 'Loading GitHub activity...'
                     : errorMessage
@@ -119,7 +116,7 @@ export const DashboardSection: React.FC = () => {
             <button
               onClick={() => fetchGitHubStats(true)}
               disabled={refreshing}
-              className="p-1.5 text-brand-muted hover:text-brand-accent transition-colors rounded-lg hover:bg-brand-bgSec/60"
+              className="p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
               title="Refresh GitHub Stats"
             >
               <RotateCw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
@@ -127,23 +124,23 @@ export const DashboardSection: React.FC = () => {
           </div>
 
           {loading ? (
-            <div className="h-28 flex items-center justify-center animate-pulse bg-brand-bg/40 rounded-2xl border border-brand-border/30">
-              <span className="text-xs text-brand-muted">Loading GitHub activity...</span>
+            <div className="h-28 flex items-center justify-center animate-pulse bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-200/80 dark:border-slate-800">
+              <span className="text-xs text-slate-500 dark:text-slate-400">Loading GitHub activity...</span>
             </div>
           ) : errorMessage ? (
-            <div className="h-28 flex flex-col items-center justify-center bg-brand-bg/40 rounded-2xl border border-brand-border/30 p-4 space-y-2">
-              <span className="text-xs text-brand-muted text-center">Unable to load GitHub activity.</span>
-              <span className="text-[10px] text-red-400/80 font-mono text-center">{errorMessage}</span>
+            <div className="h-28 flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-200/80 dark:border-slate-800 p-4 space-y-1.5">
+              <span className="text-xs text-slate-500 dark:text-slate-400 text-center">Unable to load GitHub activity.</span>
+              <span className="text-[10px] text-rose-500 font-mono text-center">{errorMessage}</span>
               <button
                 onClick={() => fetchGitHubStats(true)}
-                className="text-[10px] text-brand-accent underline hover:text-brand-text transition-colors mt-1"
+                className="text-[10px] text-blue-600 dark:text-blue-400 underline hover:text-slate-900 dark:hover:text-white transition-colors"
               >
                 Retry Request
               </button>
             </div>
           ) : (
-            <div className="overflow-x-auto pb-4 no-scrollbar">
-              <div className="flex gap-1.5 min-w-[500px]">
+            <div className="overflow-x-auto pb-2 no-scrollbar">
+              <div className="flex gap-1.5 min-w-[480px]">
                 {contributions.map((col: number[], cIdx: number) => (
                   <div key={cIdx} className="flex flex-col gap-1.5">
                     {col.map((level: number, rIdx: number) => (
@@ -159,37 +156,37 @@ export const DashboardSection: React.FC = () => {
             </div>
           )}
 
-          <div className="flex justify-between items-center text-[10px] text-brand-muted pt-2 border-t border-brand-border/20">
+          <div className="flex justify-between items-center text-[10px] text-slate-500 dark:text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800">
             <span>Live GitHub data ({githubStats?.username || 'Sumantkumaryadav8668'})</span>
             <div className="flex items-center space-x-1.5">
               <span>Less</span>
-              <div className="w-2.5 h-2.5 rounded bg-brand-bgSec/60 border border-brand-border/40"></div>
-              <div className="w-2.5 h-2.5 rounded bg-emerald-950"></div>
-              <div className="w-2.5 h-2.5 rounded bg-emerald-800"></div>
-              <div className="w-2.5 h-2.5 rounded bg-emerald-600"></div>
-              <div className="w-2.5 h-2.5 rounded bg-emerald-400"></div>
+              <div className="w-2.5 h-2.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700"></div>
+              <div className="w-2.5 h-2.5 rounded bg-emerald-200 dark:bg-emerald-950"></div>
+              <div className="w-2.5 h-2.5 rounded bg-emerald-300 dark:bg-emerald-800"></div>
+              <div className="w-2.5 h-2.5 rounded bg-emerald-400 dark:bg-emerald-600"></div>
+              <div className="w-2.5 h-2.5 rounded bg-emerald-500 dark:bg-emerald-400"></div>
               <span>More</span>
             </div>
           </div>
         </div>
 
-        <div className="lg:col-span-4 bg-brand-card/15 border border-brand-border/60 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl relative overflow-hidden flex flex-col justify-between">
-          <h3 className="text-lg font-bold text-brand-text">Language & Tech Share</h3>
+        <div className="lg:col-span-4 card card-elevated p-6 space-y-4 flex flex-col justify-between">
+          <h3 className="text-base font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-2">Language & Tech Share</h3>
 
           {loading ? (
-            <div className="h-44 flex items-center justify-center animate-pulse">
-              <span className="text-xs text-brand-muted">Loading repository language stats...</span>
+            <div className="h-40 flex items-center justify-center animate-pulse">
+              <span className="text-xs text-slate-500 dark:text-slate-400">Loading repository language stats...</span>
             </div>
           ) : errorMessage ? (
-            <div className="h-44 flex items-center justify-center p-4">
-              <span className="text-xs text-brand-muted text-center">Unable to load language share.</span>
+            <div className="h-40 flex items-center justify-center p-4">
+              <span className="text-xs text-slate-500 dark:text-slate-400 text-center">Unable to load language share.</span>
             </div>
           ) : (
             <>
-              <div className="flex justify-center my-4">
-                <div className="relative w-36 h-36 flex items-center justify-center">
+              <div className="flex justify-center my-2">
+                <div className="relative w-32 h-32 flex items-center justify-center">
                   <svg className="w-full h-full transform -rotate-90" viewBox="0 0 42 42">
-                    <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="rgba(255,255,255,0.02)" strokeWidth="4"></circle>
+                    <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="rgba(148, 163, 184, 0.1)" strokeWidth="4"></circle>
                     {techBreakdown.reduce(
                       (acc, item, index) => {
                         const strokeDasharray = `${item.percentage} ${100 - item.percentage}`;
@@ -214,22 +211,22 @@ export const DashboardSection: React.FC = () => {
                     ).elements}
                   </svg>
                   <div className="absolute flex flex-col items-center justify-center">
-                    <span className="text-xl font-extrabold text-brand-text">
+                    <span className="text-lg font-extrabold text-slate-900 dark:text-white">
                       {techBreakdown[0]?.label || 'Code'}
                     </span>
-                    <span className="text-[10px] text-brand-muted uppercase">Top Lang</span>
+                    <span className="text-[9px] text-slate-500 dark:text-slate-400 uppercase">Top Lang</span>
                   </div>
                 </div>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 {techBreakdown.map((item, idx) => (
                   <div key={idx} className="flex justify-between items-center text-xs">
                     <div className="flex items-center space-x-2">
                       <span className={`w-2.5 h-2.5 rounded-full ${item.color.replace('stroke-', 'bg-')}`}></span>
-                      <span className="text-brand-muted">{item.label}</span>
+                      <span className="text-slate-600 dark:text-slate-400">{item.label}</span>
                     </div>
-                    <span className="text-brand-text font-bold">{item.percentage}%</span>
+                    <span className="text-slate-900 dark:text-white font-bold">{item.percentage}%</span>
                   </div>
                 ))}
               </div>
@@ -238,44 +235,44 @@ export const DashboardSection: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 mt-8">
         {[
           {
-            icon: <GitCommit className="w-5 h-5 text-brand-primary" />,
+            icon: <GitCommit className="w-5 h-5 text-blue-600 dark:text-blue-400" />,
             title: 'Total Contributions',
             value: loading ? '...' : errorMessage ? 'N/A' : `${githubStats?.totalContributions.toLocaleString() ?? 0}`,
             desc: 'Past 12 months on GitHub'
           },
           {
-            icon: <Activity className="w-5 h-5 text-brand-accent" />,
+            icon: <Activity className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />,
             title: 'Stars Received',
             value: loading ? '...' : errorMessage ? 'N/A' : `${githubStats?.starsReceived ?? 0} Stars`,
             desc: 'Across public repositories'
           },
           {
-            icon: <FolderGit2 className="w-5 h-5 text-brand-success" />,
+            icon: <FolderGit2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />,
             title: 'Active Repositories',
             value: loading ? '...' : errorMessage ? 'N/A' : `${githubStats?.publicRepositories ?? 0} Repos`,
             desc: 'Public GitHub repositories'
           },
           {
-            icon: <BookOpen className="w-5 h-5 text-purple-400" />,
+            icon: <BookOpen className="w-5 h-5 text-purple-600 dark:text-purple-400" />,
             title: CURRENT_LEARNING_CONFIG.title,
             value: CURRENT_LEARNING_CONFIG.value,
             desc: CURRENT_LEARNING_CONFIG.desc
           }
         ].map((stat, idx) => (
-          <div key={idx} className="bg-brand-card/25 border border-brand-border/60 rounded-2xl p-5 space-y-3 flex flex-col justify-between shadow-md">
+          <div key={idx} className="card card-hover p-5 space-y-3 flex flex-col justify-between">
             <div className="flex justify-between items-center">
-              <div className="w-10 h-10 rounded-xl bg-brand-bg flex items-center justify-center border border-brand-border/30">
+              <div className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200/80 dark:border-slate-700/80">
                 {stat.icon}
               </div>
-              <span className="text-[10px] text-brand-muted font-mono uppercase">Telemetry</span>
+              <span className="text-[10px] text-slate-400 dark:text-slate-500 font-mono uppercase">Telemetry</span>
             </div>
             <div>
-              <span className="text-xs text-brand-muted block">{stat.title}</span>
-              <span className="text-2xl font-extrabold text-brand-text">{stat.value}</span>
-              <p className="text-[10px] text-brand-muted mt-1">{stat.desc}</p>
+              <span className="text-xs text-slate-500 dark:text-slate-400 block">{stat.title}</span>
+              <span className="text-xl font-extrabold text-slate-900 dark:text-white">{stat.value}</span>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">{stat.desc}</p>
             </div>
           </div>
         ))}

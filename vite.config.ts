@@ -1,5 +1,6 @@
 import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
+import nodemailer from 'nodemailer';
 
 interface LeetCodeSubmissionItem {
   difficulty: string;
@@ -81,6 +82,96 @@ function apiMiddlewarePlugin(): Plugin {
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
         const url = req.url || '';
+
+        // Endpoint: POST /api/contact
+        if (url.startsWith('/api/contact')) {
+          if (req.method !== 'POST') {
+            res.statusCode = 405;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ error: 'Method not allowed' }));
+            return;
+          }
+
+          let body = '';
+          req.on('data', (chunk) => {
+            body += chunk.toString();
+          });
+          req.on('end', async () => {
+            try {
+              const payload = JSON.parse(body || '{}');
+              const { name, email, subject, message } = payload;
+
+              if (!name || !email || !subject || !message) {
+                res.statusCode = 400;
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify({ error: 'All fields (name, email, subject, message) are required.' }));
+                return;
+              }
+
+              const recipient = process.env.CONTACT_RECIPIENT_EMAIL || 'sumantkumaryadav526@gmail.com';
+
+              let transporter;
+              const host = process.env.SMTP_HOST;
+              const user = process.env.SMTP_USER || process.env.EMAIL_USER;
+              const pass = process.env.SMTP_PASS || process.env.EMAIL_PASS;
+
+              if (user && pass) {
+                transporter = nodemailer.createTransport({
+                  host: host || 'smtp.gmail.com',
+                  port: parseInt(process.env.SMTP_PORT || '587'),
+                  secure: process.env.SMTP_SECURE === 'true',
+                  auth: { user, pass }
+                });
+              } else {
+                const testAccount = await nodemailer.createTestAccount();
+                transporter = nodemailer.createTransport({
+                  host: 'smtp.ethereal.email',
+                  port: 587,
+                  secure: false,
+                  auth: {
+                    user: testAccount.user,
+                    pass: testAccount.pass
+                  }
+                });
+              }
+
+              const mailOptions = {
+                from: `"Portfolio Contact Form" <${user || 'portfolio@sumant.dev'}>`,
+                to: recipient,
+                replyTo: email,
+                subject: `[Portfolio Contact] ${subject}`,
+                text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`,
+                html: `
+                  <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+                    <h2 style="color: #2563EB;">New Contact Message from Portfolio</h2>
+                    <p><strong>Name:</strong> ${String(name).replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+                    <p><strong>Email:</strong> ${String(email).replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+                    <p><strong>Subject:</strong> ${String(subject).replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+                    <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
+                    <p><strong>Message:</strong></p>
+                    <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; white-space: pre-wrap;">${String(message).replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>
+                  </div>
+                `
+              };
+
+              const info = await transporter.sendMail(mailOptions);
+              res.statusCode = 200;
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({
+                success: true,
+                message: 'Email delivered successfully.',
+                recipient: recipient,
+                messageId: info.messageId
+              }));
+            } catch (err: unknown) {
+              const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+              res.statusCode = 500;
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ error: 'Failed to deliver contact email', details: errorMessage }));
+            }
+          });
+          return;
+        }
 
         // Endpoint: GET /api/leetcode
         if (url.startsWith('/api/leetcode')) {

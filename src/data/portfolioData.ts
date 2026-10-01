@@ -172,49 +172,71 @@ export const skillCategories: SkillCategory[] = [
   {
     category: 'Frontend',
     skills: [
-      { name: 'React 19 / Next.js', level: 75, experience: '2+ Years', projectsUsed: ['Atmos Weather App', 'Dev Dashboard', 'Portfolio'], iconName: 'FaReact' },
-      { name: 'Tailwind CSS / DaisyUI', level: 65, experience: '1+ Years', projectsUsed: ['Atmos Weather App', 'Portfolio', 'Custom UI Library'], iconName: 'SiTailwindcss' }
+      { name: 'React.js', level: 85, experience: '2+ Years', projectsUsed: ['E-Commerce Platform', 'Save Life', 'Atmos Weather App'], iconName: 'FaReact' },
+      { name: 'HTML', level: 90, experience: '4 Years', projectsUsed: ['All Projects', 'Tic Tac Toe'], iconName: 'FaHtml5' },
+      { name: 'CSS', level: 85, experience: '4 Years', projectsUsed: ['All Projects', 'Portfolio'], iconName: 'FaCss3Alt' },
+      { name: 'Tailwind CSS / DaisyUI', level: 80, experience: '2 Years', projectsUsed: ['Atmos Weather App', 'Portfolio'], iconName: 'SiTailwindcss' }
     ]
   },
   {
     category: 'Backend',
     skills: [
-      { name: 'Node.js / Express', level: 62, experience: '1+ Years', projectsUsed: ['Atmos Weather App', 'API Gateway', 'Microservices'], iconName: 'FaNodeJs' }
+      { name: 'Node.js', level: 80, experience: '2 Years', projectsUsed: ['Save Life', 'E-Commerce Platform', 'MERN MiniShop'], iconName: 'FaNodeJs' },
+      { name: 'Express.js', level: 80, experience: '2 Years', projectsUsed: ['Save Life', 'E-Commerce Platform', 'MERN MiniShop'], iconName: 'SiExpress' }
     ]
   },
   {
     category: 'Programming Languages',
     skills: [
-      { name: 'JavaScript (ES6+)', level: 85, experience: '4 Years', projectsUsed: ['All Projects'], iconName: 'FaJs' },
-      { name: 'Java', level: 80, experience: '3 Years', projectsUsed: ['Data Structures','LeetCode Algorithms'], iconName: 'FaJava' },
-      { name: 'Python', level: 75, experience: '2 Years', projectsUsed: ['College Work'], iconName: 'FaPython' },
-      { name: 'C++', level: 82, experience: '2 Years', projectsUsed: ['LeetCode Algorithms'], iconName: 'SiCplusplus' },
-      { name: 'C', level: 82, experience: '2 Years', projectsUsed: ['Basic'], iconName: 'SiCplusplus' }
+      { name: 'Java', level: 82, experience: '3 Years', projectsUsed: ['Data Structures', 'LeetCode Algorithms'], iconName: 'FaJava' },
+      { name: 'C++', level: 85, experience: '2+ Years', projectsUsed: ['Competitive Coding', 'LeetCode Algorithms'], iconName: 'SiCplusplus' },
+      { name: 'JavaScript', level: 88, experience: '4 Years', projectsUsed: ['All Web Projects', 'Node.js Backend'], iconName: 'FaJs' }
     ]
   },
   {
     category: 'Databases',
     skills: [
-      { name: 'MongoDB', level: 70, experience: '2 Years', projectsUsed: ['Atmos Weather App', 'User Accounts'], iconName: 'SiMongodb' }
+      { name: 'MongoDB', level: 78, experience: '2 Years', projectsUsed: ['E-Commerce Platform', 'Save Life', 'MERN MiniShop'], iconName: 'SiMongodb' }
     ]
   },
-  // {
-  //   category: 'Cloud & DevOps',
-  //   skills: [
-  //     { name: 'AWS (S3, EC2, ECS)', level: 85, experience: '2 Years', projectsUsed: ['Atmos Hosting', 'Image Pipelines'], iconName: 'FaAws' },
-  //     { name: 'Docker / Containers', level: 82, experience: '2 Years', projectsUsed: ['Microservice Architecture'], iconName: 'FaDocker' },
-  //     { name: 'GitHub Actions (CI/CD)', level: 88, experience: '2 Years', projectsUsed: ['Continuous Integration Builds'], iconName: 'SiGithubactions' }
-  //   ]
-  // },
   {
     category: 'Tools & AI',
     skills: [
-      { name: 'Git & Version Control', level: 55, experience: '1 Years', projectsUsed: ['All Repositories'], iconName: 'FaGitAlt' }
+      { name: 'Git & Version Control', level: 85, experience: '3 Years', projectsUsed: ['All Repositories'], iconName: 'FaGitAlt' }
     ]
   }
 ];
 
 export const projectsData: Project[] = [
+  {
+    id: 'save-life-sdec',
+    title: 'Save Life / Smart Disaster & Emergency Connector',
+    subtitle: 'Smart Emergency & Disaster Coordination Platform',
+    description: 'A full-stack emergency response and disaster management system built with React, Node.js, Express, and MongoDB, featuring real-time SOS alerts and emergency dispatch coordination.',
+    longDescription: 'Save Life / SDEC is a smart emergency response and disaster management system designed to coordinate real-time SOS alerts, emergency responder dispatch, and location notifications during critical events.',
+    featured: true,
+    category: 'major',
+    status: 'COMPLETED (SIH WINNER)',
+    image: 'https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=800&q=80',
+    tags: ['React', 'Node.js', 'Express.js', 'MongoDB', 'WebSockets', 'SOS Alerts'],
+    githubUrl: 'https://github.com/Sumantkumaryadav8668/Hackathons',
+    liveUrl: '',
+    architecture: 'Full-stack MERN emergency architecture featuring real-time socket communication, Geo-JSON location index maps, and Express notification API handlers.',
+    responsibilities: [
+      'Engineered real-time SOS trigger API endpoints in Express.js with Geo-JSON payload validation.',
+      'Designed responsive emergency dashboard UI in React for instant responder status toggling.',
+      'Configured MongoDB geo-spatial queries to map nearest emergency response centers.'
+    ],
+    challenges: 'Ensuring low-latency emergency notification delivery during simulated network congestion.',
+    solutions: 'Implemented lightweight WebSocket fallback polling and optimized MongoDB indexing strategies.',
+    metrics: [
+      { label: 'Award', value: 'SIH Winner' },
+      { label: 'Stack', value: 'MERN Full-Stack' },
+      { label: 'Latency', value: '< 200ms Alerts' }
+    ],
+    gallery: [],
+    caseStudy: '### Save Life / SDEC Overview\n\nSmart Disaster & Emergency Connector System developed for emergency coordination.'
+  },
   {
     id: 'ecommerce-platform',
     title: 'E-Commerce Platform',

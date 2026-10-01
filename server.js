@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import nodemailer from 'nodemailer';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -9,6 +10,80 @@ app.use(express.json());
 
 const cache = {};
 const CACHE_TTL = 15 * 60 * 1000;
+
+async function getEmailTransporter() {
+  const host = process.env.SMTP_HOST;
+  const user = process.env.SMTP_USER || process.env.EMAIL_USER;
+  const pass = process.env.SMTP_PASS || process.env.EMAIL_PASS;
+
+  if (user && pass) {
+    return nodemailer.createTransport({
+      host: host || 'smtp.gmail.com',
+      port: parseInt(process.env.SMTP_PORT || '587'),
+      secure: process.env.SMTP_SECURE === 'true',
+      auth: { user, pass }
+    });
+  }
+
+  const testAccount = await nodemailer.createTestAccount();
+  return nodemailer.createTransport({
+    host: 'smtp.ethereal.email',
+    port: 587,
+    secure: false,
+    auth: {
+      user: testAccount.user,
+      pass: testAccount.pass
+    }
+  });
+}
+
+app.post('/api/contact', async (req, res) => {
+  const { name, email, subject, message } = req.body || {};
+
+  if (!name || !email || !subject || !message) {
+    return res.status(400).json({ error: 'All fields (name, email, subject, message) are required.' });
+  }
+
+  const recipient = process.env.CONTACT_RECIPIENT_EMAIL || 'sumantkumaryadav526@gmail.com';
+
+  const mailOptions = {
+    from: `"Portfolio Contact Form" <${process.env.SMTP_USER || process.env.EMAIL_USER || 'portfolio@sumant.dev'}>`,
+    to: recipient,
+    replyTo: email,
+    subject: `[Portfolio Contact] ${subject}`,
+    text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`,
+    html: `
+      <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+        <h2 style="color: #2563EB;">New Contact Message from Portfolio</h2>
+        <p><strong>Name:</strong> ${String(name).replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+        <p><strong>Email:</strong> ${String(email).replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+        <p><strong>Subject:</strong> ${String(subject).replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
+        <p><strong>Message:</strong></p>
+        <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; white-space: pre-wrap;">${String(message).replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>
+      </div>
+    `
+  };
+
+  try {
+    const transporter = await getEmailTransporter();
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Contact email sent successfully:', info.messageId);
+
+    return res.status(200).json({
+      success: true,
+      message: 'Email delivered successfully.',
+      recipient: recipient,
+      messageId: info.messageId
+    });
+  } catch (err) {
+    console.error('Failed to send contact email:', err);
+    return res.status(500).json({
+      error: 'Failed to deliver contact email',
+      details: err.message
+    });
+  }
+});
 
 app.get('/api/leetcode', async (req, res) => {
   const forceRefresh = req.query.refresh === 'true';

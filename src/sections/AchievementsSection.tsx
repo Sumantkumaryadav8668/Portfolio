@@ -62,79 +62,75 @@ export const AchievementsSection: React.FC = () => {
     ? [
         { label: 'Easy', solved: leetcodeData.easySolved, total: leetcodeData.easyTotal, color: 'bg-emerald-500' },
         { label: 'Medium', solved: leetcodeData.mediumSolved, total: leetcodeData.mediumTotal, color: 'bg-amber-500' },
-        { label: 'Hard', solved: leetcodeData.hardSolved, total: leetcodeData.hardTotal, color: 'bg-red-500' }
+        { label: 'Hard', solved: leetcodeData.hardSolved, total: leetcodeData.hardTotal, color: 'bg-rose-500' }
       ]
     : [];
 
   return (
-    <section id="achievements" className="py-24 px-6 border-t border-brand-border/40 relative max-w-7xl mx-auto">
-      <div className="flex flex-col space-y-4 mb-16 text-center">
-        <h2 className="text-xs uppercase tracking-widest font-extrabold text-brand-accent">Achievements</h2>
-        <p className="text-3xl sm:text-4xl font-extrabold text-brand-text">Milestones & Competitive Coding</p>
-        <div className="w-12 h-1 bg-brand-primary mx-auto rounded-full"></div>
+    <section id="achievements" className="py-20 px-6 border-t border-slate-200/80 dark:border-slate-800/80 relative max-w-6xl mx-auto">
+      <div className="flex flex-col space-y-3 mb-12 text-center">
+        <h2 className="text-xs uppercase tracking-widest font-extrabold text-blue-600 dark:text-blue-400">Achievements</h2>
+        <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Milestones & Competitive Coding</p>
+        <div className="w-12 h-1 bg-blue-600 dark:bg-blue-500 mx-auto rounded-full"></div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <div className="lg:col-span-6 bg-brand-card/15 border border-brand-border/60 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-brand-primary/5 rounded-full blur-2xl pointer-events-none"></div>
-
-          <div className="flex items-center space-x-3 mb-2">
-            <div className="w-10 h-10 rounded-lg bg-brand-accent/10 border border-brand-accent/20 flex items-center justify-center text-brand-accent">
+        {/* LeetCode & Competitive Coding Card */}
+        <div className="lg:col-span-6 card card-elevated p-6 space-y-5">
+          <div className="flex items-center space-x-3 border-b border-slate-100 dark:border-slate-800 pb-3">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200/80 dark:border-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-400">
               <Code className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-brand-text">Coding Profiles Breakdown</h3>
-              <p className="text-xs text-brand-muted">Performance on LeetCode & GeeksforGeeks</p>
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">Coding Profiles Breakdown</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Performance on LeetCode & GeeksforGeeks</p>
             </div>
           </div>
 
-          <div className="space-y-4 pt-4 border-t border-brand-border/20">
+          <div className="space-y-4">
             {loading ? (
-              <div className="p-4 bg-brand-bg/50 border border-brand-border/40 rounded-2xl animate-pulse space-y-3">
-                <p className="text-xs text-brand-muted text-center py-2">Loading LeetCode data...</p>
-                <div className="h-4 bg-brand-bgSec/80 rounded w-1/2 mx-auto"></div>
-                <div className="h-2 bg-brand-bgSec/60 rounded w-full"></div>
-                <div className="h-2 bg-brand-bgSec/60 rounded w-full"></div>
-                <div className="h-2 bg-brand-bgSec/60 rounded w-full"></div>
+              <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-xl animate-pulse space-y-2 text-center">
+                <p className="text-xs text-slate-500 dark:text-slate-400">Loading LeetCode stats...</p>
               </div>
             ) : error || !leetcodeData ? (
-              <div className="p-4 bg-brand-bg/50 border border-brand-border/40 rounded-2xl text-center space-y-2">
-                <p className="text-xs text-brand-muted">Unable to load LeetCode data.</p>
+              <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-xl text-center space-y-1">
+                <p className="text-xs text-slate-500 dark:text-slate-400">Unable to load LeetCode stats.</p>
                 <button
                   onClick={() => fetchLeetCodeData(true)}
-                  className="text-[10px] text-brand-accent underline hover:text-brand-text transition-colors"
+                  className="text-[11px] text-blue-600 dark:text-blue-400 underline hover:text-slate-900 dark:hover:text-white"
                 >
                   Try Again
                 </button>
               </div>
             ) : (
-              <div>
-                <div className="flex justify-between items-center text-xs font-semibold mb-1">
-                  <span className="text-brand-text">LeetCode ({leetcodeData.totalSolved} Solved)</span>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center text-xs font-semibold">
+                  <span className="text-slate-900 dark:text-white">LeetCode ({leetcodeData.totalSolved} Solved)</span>
                   <div className="flex items-center space-x-2">
-                    <span className="text-brand-accent">
+                    <span className="text-blue-600 dark:text-blue-400">
                       {leetcodeData.ranking > 0 ? `Rank #${leetcodeData.ranking.toLocaleString()}` : 'Knight Tier'}
                     </span>
                     <button
                       onClick={() => fetchLeetCodeData(true)}
                       disabled={refreshing}
-                      className="p-1 text-brand-muted hover:text-brand-accent transition-colors rounded-lg hover:bg-brand-bgSec/60"
-                      title="Fetch Latest LeetCode Data"
+                      className="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors rounded hover:bg-slate-100 dark:hover:bg-slate-800"
+                      title="Refresh Stats"
                     >
-                      <RotateCw className={`w-3 h-3 ${refreshing ? 'animate-spin' : ''}`} />
+                      <RotateCw className={`w-3.5 h-3.5 ${refreshing ? 'animate-spin' : ''}`} />
                     </button>
                   </div>
                 </div>
-                <div className="space-y-2 bg-brand-bg/50 border border-brand-border/40 rounded-2xl p-4">
+
+                <div className="space-y-2 bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-800 rounded-xl p-3.5">
                   {leetCodeBreakdown.map((item, idx) => {
                     const percentage = item.total > 0 ? (item.solved / item.total) * 100 : 0;
                     return (
                       <div key={idx} className="space-y-1">
-                        <div className="flex justify-between text-[10px] font-medium text-brand-muted">
+                        <div className="flex justify-between text-[10px] font-medium text-slate-600 dark:text-slate-400">
                           <span>{item.label} ({item.solved}/{item.total})</span>
                           <span>{percentage < 1 && percentage > 0 ? percentage.toFixed(1) : Math.round(percentage)}%</span>
                         </div>
-                        <div className="w-full bg-brand-bgSec/60 rounded-full h-1.5 overflow-hidden">
+                        <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-1.5 overflow-hidden">
                           <motion.div
                             initial={{ width: 0 }}
                             whileInView={{ width: `${Math.max(percentage, 2)}%` }}
@@ -146,44 +142,45 @@ export const AchievementsSection: React.FC = () => {
                     );
                   })}
 
-                  <div className="grid grid-cols-4 gap-2 pt-3 mt-3 border-t border-brand-border/20 text-center">
-                    <div className="bg-brand-bgSec/40 p-2 rounded-xl border border-brand-border/30">
-                      <span className="text-[9px] text-brand-muted uppercase font-bold block">Submissions</span>
-                      <span className="text-xs font-extrabold text-brand-text">{leetcodeData.totalSubmissions}</span>
+                  <div className="grid grid-cols-4 gap-2 pt-2.5 mt-2.5 border-t border-slate-200 dark:border-slate-700 text-center">
+                    <div className="bg-white dark:bg-slate-800 p-1.5 rounded-lg border border-slate-200/60 dark:border-slate-700">
+                      <span className="text-[9px] text-slate-500 dark:text-slate-400 uppercase font-bold block">Submissions</span>
+                      <span className="text-xs font-extrabold text-slate-900 dark:text-white">{leetcodeData.totalSubmissions}</span>
                     </div>
-                    <div className="bg-brand-bgSec/40 p-2 rounded-xl border border-brand-border/30">
-                      <span className="text-[9px] text-brand-muted uppercase font-bold block">Active Days</span>
-                      <span className="text-xs font-extrabold text-brand-text">{leetcodeData.activeDays}d</span>
+                    <div className="bg-white dark:bg-slate-800 p-1.5 rounded-lg border border-slate-200/60 dark:border-slate-700">
+                      <span className="text-[9px] text-slate-500 dark:text-slate-400 uppercase font-bold block">Active</span>
+                      <span className="text-xs font-extrabold text-slate-900 dark:text-white">{leetcodeData.activeDays}d</span>
                     </div>
-                    <div className="bg-brand-bgSec/40 p-2 rounded-xl border border-brand-border/30">
-                      <span className="text-[9px] text-brand-muted uppercase font-bold block">Max Streak</span>
-                      <span className="text-xs font-extrabold text-brand-accent">{leetcodeData.streak}d</span>
+                    <div className="bg-white dark:bg-slate-800 p-1.5 rounded-lg border border-slate-200/60 dark:border-slate-700">
+                      <span className="text-[9px] text-slate-500 dark:text-slate-400 uppercase font-bold block">Streak</span>
+                      <span className="text-xs font-extrabold text-blue-600 dark:text-blue-400">{leetcodeData.streak}d</span>
                     </div>
-                    <div className="bg-brand-bgSec/40 p-2 rounded-xl border border-brand-border/30">
-                      <span className="text-[9px] text-brand-muted uppercase font-bold block">Badges</span>
-                      <span className="text-xs font-extrabold text-brand-success">{leetcodeData.badgesCount}</span>
+                    <div className="bg-white dark:bg-slate-800 p-1.5 rounded-lg border border-slate-200/60 dark:border-slate-700">
+                      <span className="text-[9px] text-slate-500 dark:text-slate-400 uppercase font-bold block">Badges</span>
+                      <span className="text-xs font-extrabold text-emerald-600 dark:text-emerald-400">{leetcodeData.badgesCount}</span>
                     </div>
                   </div>
                 </div>
               </div>
             )}
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-brand-bg/50 border border-brand-border/40 rounded-2xl p-4 text-center space-y-1">
-                <span className="text-[10px] text-brand-muted uppercase font-bold block">GeeksforGeeks</span>
-                <span className="text-xl font-extrabold text-brand-accent">Rank #5</span>
-                <span className="text-[9px] text-brand-muted block">Out of 15,000+ users</span>
+            <div className="grid grid-cols-2 gap-3 pt-1">
+              <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-800 rounded-xl p-3 text-center space-y-0.5">
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold block">GeeksforGeeks</span>
+                <span className="text-lg font-extrabold text-blue-600 dark:text-blue-400">Rank #5</span>
+                <span className="text-[9px] text-slate-500 dark:text-slate-400 block">Out of 15,000+ users</span>
               </div>
-              <div className="bg-brand-bg/50 border border-brand-border/40 rounded-2xl p-4 text-center space-y-1">
-                <span className="text-[10px] text-brand-muted uppercase font-bold block">CodeChef</span>
-                <span className="text-xl font-extrabold text-brand-success">4 Star</span>
-                <span className="text-[9px] text-brand-muted block">Max Rating: 1850+</span>
+              <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-800 rounded-xl p-3 text-center space-y-0.5">
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold block">CodeChef</span>
+                <span className="text-lg font-extrabold text-emerald-600 dark:text-emerald-400">4 Star</span>
+                <span className="text-[9px] text-slate-500 dark:text-slate-400 block">Max Rating: 1850+</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="lg:col-span-6 space-y-6">
+        {/* Milestone Awards Column */}
+        <div className="lg:col-span-6 space-y-4">
           {awards.map((award, index) => {
             return (
               <motion.div
@@ -191,26 +188,26 @@ export const AchievementsSection: React.FC = () => {
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="bg-brand-card/25 border border-brand-border/60 hover:border-brand-accent/40 rounded-2xl p-6 flex space-x-4 items-start shadow-md relative group transition-colors animate-none"
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+                className="card card-hover p-5 flex space-x-4 items-start"
               >
-                <div className="w-12 h-12 rounded-xl bg-brand-primary/10 flex items-center justify-center text-brand-accent border border-brand-primary/20 flex-shrink-0 group-hover:bg-brand-primary/25 transition-colors">
-                  {award.category === 'award' ? <Award className="w-6 h-6" /> : <Zap className="w-6 h-6" />}
+                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200/80 dark:border-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-400 flex-shrink-0">
+                  {award.category === 'award' ? <Award className="w-5 h-5" /> : <Zap className="w-5 h-5" />}
                 </div>
 
-                <div className="space-y-2 flex-grow">
+                <div className="space-y-1.5 flex-grow">
                   <div className="flex justify-between items-start">
                     <div>
-                      <span className="text-[9px] text-brand-muted uppercase font-bold tracking-wider">{award.issuer} • {award.date}</span>
-                      <h3 className="text-lg font-bold text-brand-text group-hover:text-brand-accent transition-colors">{award.title}</h3>
+                      <span className="text-[9px] text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wider">{award.issuer} • {award.date}</span>
+                      <h3 className="text-base font-bold text-slate-900 dark:text-white">{award.title}</h3>
                     </div>
                     {award.metric && (
-                      <span className="text-[10px] text-brand-accent bg-brand-primary/10 border border-brand-primary/20 px-2 py-0.5 rounded-lg font-semibold whitespace-nowrap">
+                      <span className="text-[10px] text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 px-2 py-0.5 rounded font-semibold whitespace-nowrap">
                         {award.metric}
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-brand-muted leading-relaxed">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                     {award.description}
                   </p>
                 </div>

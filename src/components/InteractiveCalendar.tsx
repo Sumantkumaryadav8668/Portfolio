@@ -30,7 +30,7 @@ export const InteractiveCalendar: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-xl mx-auto bg-brand-card/30 backdrop-blur-md rounded-2xl border border-brand-border p-6 shadow-xl">
+    <div className="w-full max-w-xl mx-auto bg-brand-card/30 backdrop-blur-md rounded-2xl border border-brand-border p-6 shadow-depth-2 hover-depth-2">
       <div className="flex items-center space-x-3 mb-6">
         <div className="w-10 h-10 rounded-lg bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center text-brand-accent">
           <CalendarIcon className="w-5 h-5" />

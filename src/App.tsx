@@ -25,8 +25,7 @@ function App() {
         url="https://sumant.dev"
       />
       
-      <div className="relative min-h-screen text-brand-text bg-brand-bg select-none transition-colors duration-300">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none"></div>
+      <div className="relative min-h-screen text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-[#090d16] bg-grid-pattern select-none transition-colors duration-300">
 
         <Navbar />
 

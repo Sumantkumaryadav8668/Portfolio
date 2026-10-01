@@ -59,16 +59,16 @@ export const ChatbotWidget: React.FC = () => {
         ...prev,
         { id: (Date.now() + 1).toString(), sender: 'bot', text: responseText }
       ]);
-    }, 500);
+    }, 400);
   };
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        whileHover={{ scale: 1.08 }}
+        whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="w-14 h-14 rounded-full bg-brand-primary text-white flex items-center justify-center shadow-lg shadow-brand-primary/20 hover:bg-brand-primary/95 transition-colors cursor-pointer border-0"
+        className="w-13 h-13 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-md hover:bg-blue-700 transition-all cursor-pointer border-0"
         aria-label="Open Portfolio Assistant Widget"
       >
         {isOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
@@ -77,45 +77,51 @@ export const ChatbotWidget: React.FC = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.95, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            className="w-80 sm:w-96 h-[480px] bg-brand-card border border-brand-border rounded-3xl shadow-2xl flex flex-col overflow-hidden mb-4 relative z-10"
+            exit={{ opacity: 0, scale: 0.95, y: 15 }}
+            transition={{ duration: 0.2 }}
+            className="w-80 sm:w-96 h-[460px] card card-elevated shadow-xl flex flex-col overflow-hidden mb-3 relative z-10"
           >
-            <div className="bg-brand-bgSec/80 border-b border-brand-border p-4 flex items-center justify-between">
+            {/* Header */}
+            <div className="bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-800 p-3.5 flex items-center justify-between">
               <div className="flex items-center space-x-2.5">
-                <div className="w-8 h-8 rounded-lg bg-brand-primary/15 flex items-center justify-center text-brand-accent">
+                <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-400">
                   <Bot className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-brand-text">Sumant's Portfolio Assistant</h4>
-                  <span className="text-[10px] text-brand-success font-semibold flex items-center">
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-success mr-1 animate-pulse"></span>
+                  <h4 className="text-xs font-bold text-slate-900 dark:text-white">Sumant's Portfolio Assistant</h4>
+                  <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-pulse"></span>
                     Portfolio Scope Only
                   </span>
                 </div>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-7 h-7 rounded-lg bg-transparent hover:bg-brand-bg flex items-center justify-center text-brand-muted hover:text-brand-text cursor-pointer border-0 focus:outline-none"
+                className="w-7 h-7 rounded-lg bg-transparent hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-pointer border-0 focus:outline-none"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="flex-grow overflow-y-auto p-4 space-y-4 no-scrollbar">
+            {/* Messages Body */}
+            <div className="flex-grow overflow-y-auto p-4 space-y-3.5 no-scrollbar">
               {messages.map((msg) => {
                 const isBot = msg.sender === 'bot';
                 return (
                   <div key={msg.id} className={`flex items-start space-x-2.5 ${isBot ? '' : 'flex-row-reverse space-x-reverse'}`}>
                     <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 text-xs ${
-                      isBot ? 'bg-brand-primary/10 text-brand-accent' : 'bg-brand-card border border-brand-border text-brand-text'
+                      isBot
+                        ? 'bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 border border-blue-200/80 dark:border-blue-900/50'
+                        : 'bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white'
                     }`}>
                       {isBot ? <Bot className="w-4 h-4" /> : <User className="w-4 h-4" />}
                     </div>
-                    <div className={`max-w-[75%] rounded-2xl p-3 text-xs leading-relaxed whitespace-pre-line ${
-                      isBot ? 'bg-brand-bgSec border border-brand-border/60 text-brand-text' : 'bg-brand-primary text-white'
+                    <div className={`max-w-[78%] rounded-xl p-3 text-xs leading-relaxed whitespace-pre-line ${
+                      isBot
+                        ? 'bg-slate-100 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 text-slate-900 dark:text-slate-100'
+                        : 'bg-blue-600 text-white font-medium'
                     }`}>
                       {msg.text}
                     </div>
@@ -125,27 +131,28 @@ export const ChatbotWidget: React.FC = () => {
 
               {isTyping && (
                 <div className="flex items-start space-x-2.5">
-                  <div className="w-7 h-7 rounded-lg bg-brand-primary/10 text-brand-accent flex items-center justify-center flex-shrink-0">
+                  <div className="w-7 h-7 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0">
                     <Bot className="w-4 h-4" />
                   </div>
-                  <div className="bg-brand-bgSec border border-brand-border/60 rounded-2xl px-4 py-3 flex space-x-1 items-center">
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-muted animate-bounce" style={{ animationDelay: '0ms' }}></span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-muted animate-bounce" style={{ animationDelay: '150ms' }}></span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-muted animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                  <div className="bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 rounded-xl px-3.5 py-2.5 flex space-x-1 items-center">
+                    <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: '150ms' }}></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: '300ms' }}></span>
                   </div>
                 </div>
               )}
               <div ref={messagesEndRef}></div>
             </div>
 
-            <div className="p-3 border-t border-brand-border/40 space-y-1">
-              <span className="text-[10px] text-brand-muted uppercase font-bold px-1">Quick Questions:</span>
-              <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto no-scrollbar pt-1">
+            {/* Quick Replies */}
+            <div className="p-2.5 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 space-y-1">
+              <span className="text-[9px] text-slate-400 dark:text-slate-500 uppercase font-bold px-1">Quick Questions:</span>
+              <div className="flex flex-wrap gap-1 max-h-20 overflow-y-auto no-scrollbar pt-0.5">
                 {quickReplies.map((reply, idx) => (
                   <button
                     key={idx}
                     onClick={() => handleSendMessage(reply)}
-                    className="text-[10px] bg-brand-bg border border-brand-border/70 hover:border-brand-accent hover:text-brand-text text-brand-muted px-2.5 py-1 rounded-xl transition-all cursor-pointer border-0"
+                    className="text-[9px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-blue-500/50 hover:text-blue-600 dark:hover:text-blue-400 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-lg transition-all cursor-pointer"
                   >
                     {reply}
                   </button>
@@ -153,26 +160,27 @@ export const ChatbotWidget: React.FC = () => {
               </div>
             </div>
 
+            {/* Input Footer */}
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 handleSendMessage(inputText);
               }}
-              className="p-3 border-t border-brand-border flex items-center space-x-2"
+              className="p-2.5 border-t border-slate-200 dark:border-slate-800 flex items-center space-x-2 bg-white dark:bg-slate-900"
             >
               <input
                 type="text"
-                placeholder="Ask about marks, CGPA, projects, skills..."
+                placeholder="Ask about marks, CGPA, projects..."
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
-                className="w-full bg-brand-bgSec/60 border border-brand-border rounded-xl px-4 py-2.5 text-xs text-brand-text focus:outline-none focus:border-brand-primary"
+                className="input-field py-2 text-xs"
               />
               <button
                 type="submit"
                 aria-label="Send Query"
-                className="w-9 h-9 rounded-xl bg-brand-primary hover:bg-brand-primary/80 flex items-center justify-center text-white transition-colors flex-shrink-0 cursor-pointer border-0"
+                className="btn-primary py-2 px-3 text-xs flex-shrink-0"
               >
-                <Send className="w-4 h-4" />
+                <Send className="w-3.5 h-3.5" />
               </button>
             </form>
           </motion.div>
