@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, X, Send, Bot, User } from 'lucide-react';
 import { queryPortfolioAI } from '../utils/portfolioAI';
+import { useLanguage } from '../context/LanguageContext';
 
 interface Message {
   id: string;
@@ -22,6 +23,7 @@ const quickReplies = [
 ];
 
 export const ChatbotWidget: React.FC = () => {
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState('');
@@ -90,10 +92,10 @@ export const ChatbotWidget: React.FC = () => {
                   <Bot className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-slate-900 dark:text-white">Sumant's Portfolio Assistant</h4>
+                  <h4 className="text-xs font-bold text-slate-900 dark:text-white">{t('chatbot.title')}</h4>
                   <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-pulse"></span>
-                    Portfolio Scope Only
+                    {t('chatbot.scope')}
                   </span>
                 </div>
               </div>
@@ -170,7 +172,7 @@ export const ChatbotWidget: React.FC = () => {
             >
               <input
                 type="text"
-                placeholder="Ask about marks, CGPA, projects..."
+                placeholder={t('chatbot.placeholder')}
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 className="input-field py-2 text-xs"

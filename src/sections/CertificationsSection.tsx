@@ -2,13 +2,16 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Award, ShieldCheck, ExternalLink, Calendar, Key } from 'lucide-react';
 import { certificationsData } from '../data/portfolioData';
+import { useLanguage } from '../context/LanguageContext';
 
 export const CertificationsSection: React.FC = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="certifications" className="py-20 px-6 border-t border-slate-200/80 dark:border-slate-800/80 relative max-w-6xl mx-auto">
       <div className="flex flex-col space-y-3 mb-12 text-center">
-        <h2 className="text-xs uppercase tracking-widest font-extrabold text-blue-600 dark:text-blue-400">Certifications</h2>
-        <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Verified Credentials</p>
+        <h2 className="text-xs uppercase tracking-widest font-extrabold text-blue-600 dark:text-blue-400">{t('certifications.heading_tag')}</h2>
+        <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">{t('certifications.heading_title')}</p>
         <div className="w-12 h-1 bg-blue-600 dark:bg-blue-500 mx-auto rounded-full"></div>
       </div>
 
@@ -48,7 +51,7 @@ export const CertificationsSection: React.FC = () => {
                 <div className="space-y-1.5 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400">
                   <div className="flex items-center space-x-2">
                     <Calendar className="w-3.5 h-3.5" />
-                    <span>Issued: {cert.issueDate}</span>
+                    <span>{t('certifications.issued')} {cert.issueDate}</span>
                   </div>
                   {cert.credentialId && (
                     <div className="flex items-center space-x-2">
@@ -66,7 +69,7 @@ export const CertificationsSection: React.FC = () => {
 
                 {cert.skillsLearned && cert.skillsLearned.length > 0 && (
                   <div className="pt-1">
-                    <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wider mb-1 block">Skills Authenticated:</span>
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wider mb-1 block">{t('certifications.skills_authenticated')}</span>
                     <div className="flex flex-wrap gap-1">
                       {cert.skillsLearned.map((skill) => (
                         <span key={skill} className="text-[9px] bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-750 px-2 py-0.5 rounded text-slate-600 dark:text-slate-300">
@@ -86,7 +89,7 @@ export const CertificationsSection: React.FC = () => {
                   className="btn-secondary w-full py-2 text-xs flex items-center justify-center gap-1.5"
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
-                  <span>View Certificate</span>
+                  <span>{t('certifications.view_cert')}</span>
                 </a>
               </div>
             </motion.div>

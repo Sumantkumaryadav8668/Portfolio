@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Award, CheckCircle, GraduationCap, ChevronDown, ChevronUp } from 'lucide-react';
 import { educationData } from '../data/portfolioData';
+import { useLanguage } from '../context/LanguageContext';
 
 export const EducationSection: React.FC = () => {
+  const { t } = useLanguage();
   const [expandedId, setExpandedId] = useState<string | null>('btech');
 
   const toggleExpand = (id: string) => {
@@ -13,8 +15,8 @@ export const EducationSection: React.FC = () => {
   return (
     <section id="education" className="py-20 px-6 border-t border-slate-200/80 dark:border-slate-800/80 relative max-w-6xl mx-auto">
       <div className="flex flex-col space-y-3 mb-12 text-center">
-        <h2 className="text-xs uppercase tracking-widest font-extrabold text-blue-600 dark:text-blue-400">Education</h2>
-        <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Academic Foundation</p>
+        <h2 className="text-xs uppercase tracking-widest font-extrabold text-blue-600 dark:text-blue-400">{t('education.heading_tag')}</h2>
+        <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">{t('education.heading_title')}</p>
         <div className="w-12 h-1 bg-blue-600 dark:bg-blue-500 mx-auto rounded-full"></div>
       </div>
 
@@ -66,7 +68,7 @@ export const EducationSection: React.FC = () => {
                           <div>
                             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-2 flex items-center">
                               <BookOpen className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 mr-1.5" />
-                              Relevant Coursework
+                              {t('education.coursework')}
                             </h4>
                             <div className="flex flex-wrap gap-1.5">
                               {edu.courses.map((course, cIdx) => (
@@ -84,7 +86,7 @@ export const EducationSection: React.FC = () => {
                         <div>
                           <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-2 flex items-center">
                             <Award className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 mr-1.5" />
-                            Honors & Achievements
+                            {t('education.honors')}
                           </h4>
                           <ul className="space-y-1.5 pl-0">
                             {edu.achievements.map((ach, aIdx) => (
@@ -106,8 +108,8 @@ export const EducationSection: React.FC = () => {
 
         <div className="lg:col-span-5 card card-elevated p-6 space-y-4">
           <div>
-            <h3 className="text-base font-bold text-slate-900 dark:text-white">GPA Trajectory</h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Semester-wise academic performance progression</p>
+            <h3 className="text-base font-bold text-slate-900 dark:text-white">{t('education.gpa_title')}</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{t('education.gpa_sub')}</p>
           </div>
 
           <div className="flex flex-col space-y-3 pt-2">

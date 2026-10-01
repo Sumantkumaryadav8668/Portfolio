@@ -1,24 +1,26 @@
 import React, { useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 import { useActiveSection } from '../hooks/useActiveSection';
-import { Menu, X, Sun, Moon, Download } from 'lucide-react';
+import { Menu, X, Sun, Moon, FileText, Globe } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const Navbar: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
+  const { language, toggleLanguage, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { id: 'hero', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'education', label: 'Education' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'certifications', label: 'Certifications' },
-    { id: 'achievements', label: 'Achievements' },
-    { id: 'dashboard', label: 'Dashboard' },
-    { id: 'contact', label: 'Contact' },
+    { id: 'hero', labelKey: 'nav.home' },
+    { id: 'about', labelKey: 'nav.about' },
+    { id: 'education', labelKey: 'nav.education' },
+    { id: 'skills', labelKey: 'nav.skills' },
+    { id: 'projects', labelKey: 'nav.projects' },
+    { id: 'certifications', labelKey: 'nav.certifications' },
+    { id: 'achievements', labelKey: 'nav.achievements' },
+    { id: 'dashboard', labelKey: 'nav.dashboard' },
+    { id: 'contact', labelKey: 'nav.contact' },
   ];
 
   const sectionIds = navItems.map((item) => item.id);
@@ -65,7 +67,7 @@ export const Navbar: React.FC = () => {
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100'
                   }`}
                 >
-                  {item.label}
+                  {t(item.labelKey)}
                   {isActive && (
                     <motion.div
                       layoutId="activeIndicator"
@@ -100,14 +102,27 @@ export const Navbar: React.FC = () => {
 
             <a
               href="/resume.pdf"
-              download="Sumant_Yadav_Resume.pdf"
-              aria-label="Download Resume"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View Resume"
               className="btn-primary py-1.5 px-3 text-xs font-semibold rounded-xl flex items-center gap-1.5 h-8"
             >
-              <Download className="w-3.5 h-3.5" />
-              <span className="hidden md:inline">Resume</span>
+              <FileText className="w-3.5 h-3.5" />
+              <span>{t('nav.resume')}</span>
             </a>
 
+            {/* Language Toggle Button (🌐 EN | हिंदी) */}
+            <button
+              onClick={toggleLanguage}
+              aria-label="Toggle Language"
+              title={language === 'en' ? 'Switch to Hindi (हिंदी में देखें)' : 'Switch to English'}
+              className="h-8 px-2.5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-200 flex items-center space-x-1.5 transition-all cursor-pointer focus:outline-none"
+            >
+              <Globe className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+              <span>{language === 'en' ? 'EN | हिंदी' : 'हिंदी | EN'}</span>
+            </button>
+
+            {/* Light / Dark Theme Toggle Button */}
             <button
               onClick={toggleTheme}
               aria-label="Toggle Theme"
@@ -116,6 +131,7 @@ export const Navbar: React.FC = () => {
               {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-600" />}
             </button>
 
+            {/* Mobile Hamburger Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle Menu"
@@ -126,6 +142,7 @@ export const Navbar: React.FC = () => {
           </div>
         </div>
 
+        {/* Mobile Hamburger Drawer Menu */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -133,9 +150,9 @@ export const Navbar: React.FC = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="xl:hidden border-t border-slate-200 dark:border-slate-800 mt-3 pt-3 space-y-1 overflow-hidden"
+              className="xl:hidden border-t border-slate-200 dark:border-slate-800 mt-3 pt-3 space-y-3 overflow-hidden"
             >
-              <div className="grid grid-cols-2 gap-1 pb-3">
+              <div className="grid grid-cols-2 gap-1">
                 {navItems.map((item) => {
                   const isActive = activeSection === item.id;
                   return (
@@ -148,14 +165,35 @@ export const Navbar: React.FC = () => {
                           : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 bg-transparent'
                       }`}
                     >
-                      {item.label}
+                      {t(item.labelKey)}
                     </button>
                   );
                 })}
               </div>
+
+              {/* Mobile Language Selector Row */}
+              <div className="flex items-center justify-between pt-2 border-t border-slate-200 dark:border-slate-800 text-xs">
+                <span className="text-slate-500 dark:text-slate-400 font-medium">Language / भाषा:</span>
+                <button
+                  onClick={toggleLanguage}
+                  className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 text-blue-600 dark:text-blue-400 font-bold text-xs flex items-center space-x-1.5"
+                >
+                  <Globe className="w-3.5 h-3.5" />
+                  <span>{language === 'en' ? 'English (EN)' : 'हिंदी (Hindi)'}</span>
+                </button>
+              </div>
+
               <div className="flex justify-between items-center pt-2 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400">
-                <span>Find me on:</span>
-                <div className="flex space-x-3">
+                <a
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 font-bold text-xs flex items-center space-x-1.5 border border-blue-200/80 dark:border-blue-900/50"
+                >
+                  <FileText className="w-3.5 h-3.5" />
+                  <span>{t('nav.resume')}</span>
+                </a>
+                <div className="flex space-x-3 items-center">
                   <a href="https://github.com/Sumantkumaryadav8668" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 dark:hover:text-blue-400">GitHub</a>
                   <a href="https://www.linkedin.com/in/yadavsumant/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 dark:hover:text-blue-400">LinkedIn</a>
                 </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Award, Zap, Code, RotateCw } from 'lucide-react';
 import { achievementsData } from '../data/portfolioData';
+import { useLanguage } from '../context/LanguageContext';
 
 interface LeetCodeStats {
   totalSolved: number;
@@ -20,6 +21,7 @@ interface LeetCodeStats {
 }
 
 export const AchievementsSection: React.FC = () => {
+  const { t } = useLanguage();
   const awards = achievementsData.filter((a) => a.category !== 'coding');
 
   const [leetcodeData, setLeetcodeData] = useState<LeetCodeStats | null>(null);
@@ -69,8 +71,8 @@ export const AchievementsSection: React.FC = () => {
   return (
     <section id="achievements" className="py-20 px-6 border-t border-slate-200/80 dark:border-slate-800/80 relative max-w-6xl mx-auto">
       <div className="flex flex-col space-y-3 mb-12 text-center">
-        <h2 className="text-xs uppercase tracking-widest font-extrabold text-blue-600 dark:text-blue-400">Achievements</h2>
-        <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Milestones & Competitive Coding</p>
+        <h2 className="text-xs uppercase tracking-widest font-extrabold text-blue-600 dark:text-blue-400">{t('achievements.heading_tag')}</h2>
+        <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">{t('achievements.heading_title')}</p>
         <div className="w-12 h-1 bg-blue-600 dark:bg-blue-500 mx-auto rounded-full"></div>
       </div>
 
@@ -82,7 +84,7 @@ export const AchievementsSection: React.FC = () => {
               <Code className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white">Coding Profiles Breakdown</h3>
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">{t('achievements.coding_title')}</h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">Performance on LeetCode & GeeksforGeeks</p>
             </div>
           </div>

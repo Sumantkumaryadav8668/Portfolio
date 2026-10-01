@@ -3,8 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Code, Award, FileText, ShieldAlert, Sparkles, Layers } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import { projectsData } from '../data/portfolioData';
+import { useLanguage } from '../context/LanguageContext';
 
 export const ProjectsSection: React.FC = () => {
+  const { t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState<'major' | 'minor'>('major');
   const [heroActiveTab, setHeroActiveTab] = useState<'overview' | 'architecture' | 'solutions' | 'casestudy'>('overview');
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
@@ -23,11 +25,11 @@ export const ProjectsSection: React.FC = () => {
       <div className="flex flex-col space-y-3 text-center">
         <div className="inline-flex items-center space-x-2 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 rounded-full px-3.5 py-1.5 w-fit mx-auto text-blue-600 dark:text-blue-400 font-bold text-xs uppercase tracking-widest">
           <Sparkles className="w-3.5 h-3.5 mr-1" />
-          Pioneering Product Showcases
+          {t('projects.heading_tag')}
         </div>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Projects & Engineering Builds</h2>
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">{t('projects.heading_title')}</h2>
         <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-          Explore featured product case studies and compact technical builds.
+          {t('projects.sub_desc')}
         </p>
 
         {/* Category Selector Tabs */}
@@ -41,7 +43,7 @@ export const ProjectsSection: React.FC = () => {
             }`}
           >
             <Sparkles className="w-4 h-4" />
-            <span>MAJOR PROJECTS</span>
+            <span>{t('projects.major_tab')}</span>
           </button>
 
           <button
@@ -53,7 +55,7 @@ export const ProjectsSection: React.FC = () => {
             }`}
           >
             <Layers className="w-4 h-4" />
-            <span>MINOR PROJECTS</span>
+            <span>{t('projects.minor_tab')}</span>
           </button>
         </div>
 

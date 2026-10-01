@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Mail, MapPin, Send, Calendar as CalendarIcon, Clock, CheckCircle, AlertCircle } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { SiLeetcode } from 'react-icons/si';
+import { useLanguage } from '../context/LanguageContext';
 
 export const ContactSection: React.FC = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -83,8 +85,8 @@ export const ContactSection: React.FC = () => {
   return (
     <section id="contact" className="py-20 px-6 border-t border-slate-200/80 dark:border-slate-800/80 relative max-w-6xl mx-auto">
       <div className="flex flex-col space-y-3 mb-12 text-center">
-        <h2 className="text-xs uppercase tracking-widest font-extrabold text-blue-600 dark:text-blue-400">Contact</h2>
-        <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Get in Touch</p>
+        <h2 className="text-xs uppercase tracking-widest font-extrabold text-blue-600 dark:text-blue-400">{t('contact.heading_tag')}</h2>
+        <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">{t('contact.heading_title')}</p>
         <div className="w-12 h-1 bg-blue-600 dark:bg-blue-500 mx-auto rounded-full"></div>
       </div>
 
@@ -92,9 +94,9 @@ export const ContactSection: React.FC = () => {
         {/* Left Column - Details & Contact Form */}
         <div className="lg:col-span-7 space-y-8">
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Let's Connect</h3>
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{t('contact.connect_title')}</h3>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-              I am open to new opportunities, software development projects, and technical collaborations. Send me a message using the form below or connect via email.
+              {t('contact.connect_desc')}
             </p>
           </div>
 
@@ -104,7 +106,7 @@ export const ContactSection: React.FC = () => {
                 <Mail className="w-5 h-5" />
               </div>
               <div className="overflow-hidden">
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold block">Email Me</span>
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold block">{t('contact.email_me')}</span>
                 <a href="mailto:sumantkumaryadav526@gmail.com" className="text-xs font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors truncate block">
                   sumantkumaryadav526@gmail.com
                 </a>
@@ -116,19 +118,19 @@ export const ContactSection: React.FC = () => {
                 <MapPin className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold block">Location</span>
-                <span className="text-xs font-bold text-slate-900 dark:text-white">Bhopal, MP, India</span>
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold block">{t('contact.location')}</span>
+                <span className="text-xs font-bold text-slate-900 dark:text-white">{t('contact.location_val')}</span>
               </div>
             </div>
           </div>
 
           {/* Contact Form */}
           <form onSubmit={handleSubmit} className="card card-elevated p-6 space-y-4">
-            <h4 className="text-base font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-2">Send a Direct Message</h4>
+            <h4 className="text-base font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-2">{t('contact.form_title')}</h4>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1">
-                <label htmlFor="name" className="text-xs font-semibold text-slate-700 dark:text-slate-300">Your Name *</label>
+                <label htmlFor="name" className="text-xs font-semibold text-slate-700 dark:text-slate-300">{t('contact.name_label')}</label>
                 <input
                   id="name"
                   type="text"
@@ -142,7 +144,7 @@ export const ContactSection: React.FC = () => {
               </div>
 
               <div className="space-y-1">
-                <label htmlFor="email" className="text-xs font-semibold text-slate-700 dark:text-slate-300">Your Email *</label>
+                <label htmlFor="email" className="text-xs font-semibold text-slate-700 dark:text-slate-300">{t('contact.email_label')}</label>
                 <input
                   id="email"
                   type="email"
@@ -157,7 +159,7 @@ export const ContactSection: React.FC = () => {
             </div>
 
             <div className="space-y-1">
-              <label htmlFor="subject" className="text-xs font-semibold text-slate-700 dark:text-slate-300">Subject *</label>
+              <label htmlFor="subject" className="text-xs font-semibold text-slate-700 dark:text-slate-300">{t('contact.subject_label')}</label>
               <input
                 id="subject"
                 type="text"
@@ -171,7 +173,7 @@ export const ContactSection: React.FC = () => {
             </div>
 
             <div className="space-y-1">
-              <label htmlFor="message" className="text-xs font-semibold text-slate-700 dark:text-slate-300">Message *</label>
+              <label htmlFor="message" className="text-xs font-semibold text-slate-700 dark:text-slate-300">{t('contact.message_label')}</label>
               <textarea
                 id="message"
                 name="message"
@@ -201,11 +203,11 @@ export const ContactSection: React.FC = () => {
               className="btn-primary w-full py-3 text-xs sm:text-sm font-bold"
             >
               {formStatus.submitting ? (
-                <span>Sending Message...</span>
+                <span>{t('contact.sending_btn')}</span>
               ) : (
                 <>
                   <Send className="w-4 h-4" />
-                  <span>Send Message</span>
+                  <span>{t('contact.send_btn')}</span>
                 </>
               )}
             </button>

@@ -2,21 +2,23 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Target, Eye, Compass, Calendar } from 'lucide-react';
 import { journeyData } from '../data/portfolioData';
+import { useLanguage } from '../context/LanguageContext';
 
 export const AboutSection: React.FC = () => {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<'profile' | 'journey'>('profile');
 
   const coreValues = [
-    { icon: <Target className="w-5 h-5 text-blue-600 dark:text-blue-400" />, title: 'Mission', desc: 'Building scalable MERN applications with clean code and modern technologies.' },
-    { icon: <Eye className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />, title: 'Vision', desc: "Building innovative, scalable, and impactful web applications that solve real-world problems." },
-    { icon: <Compass className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />, title: 'Career Goal', desc: 'To grow as a Full Stack Developer by creating scalable, secure, and user-focused web applications that solve real-world problems.' },
+    { icon: <Target className="w-5 h-5 text-blue-600 dark:text-blue-400" />, title: t('about.mission_title'), desc: t('about.mission_desc') },
+    { icon: <Eye className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />, title: t('about.vision_title'), desc: t('about.vision_desc') },
+    { icon: <Compass className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />, title: t('about.career_title'), desc: t('about.career_desc') },
   ];
 
   return (
     <section id="about" className="py-20 px-6 border-t border-slate-200/80 dark:border-slate-800/80 relative max-w-6xl mx-auto">
       <div className="flex flex-col space-y-3 mb-12 text-center">
-        <h2 className="text-xs uppercase tracking-widest font-extrabold text-blue-600 dark:text-blue-400">About Sumant Kumar Yadav</h2>
-        <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">MERN Stack Developer</p>
+        <h2 className="text-xs uppercase tracking-widest font-extrabold text-blue-600 dark:text-blue-400">{t('about.heading_tag')}</h2>
+        <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">{t('about.heading_title')}</p>
         <div className="w-12 h-1 bg-blue-600 dark:bg-blue-500 mx-auto rounded-full"></div>
       </div>
 
@@ -30,7 +32,7 @@ export const AboutSection: React.FC = () => {
                 : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 bg-transparent'
             }`}
           >
-            Professional Profile
+            {t('about.tab_profile')}
           </button>
           <button
             onClick={() => setActiveTab('journey')}
@@ -40,7 +42,7 @@ export const AboutSection: React.FC = () => {
                 : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 bg-transparent'
             }`}
           >
-            My Journey
+            {t('about.tab_journey')}
           </button>
         </div>
       </div>
@@ -64,16 +66,16 @@ export const AboutSection: React.FC = () => {
                 />
               </div>
               <div className="space-y-1">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white">Sumant Kumar Yadav</h3>
-                <p className="text-xs font-medium text-slate-500 dark:text-slate-400">B.Tech CSE Student (2023–2027)</p>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">{t('hero.name')}</h3>
+                <p className="text-xs font-medium text-slate-500 dark:text-slate-400">{t('about.role_sub')}</p>
               </div>
             </div>
 
             <div className="lg:col-span-7 space-y-6">
               <div className="space-y-3">
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">About Me</h3>
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{t('about.section_title')}</h3>
                 <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
-                  B.Tech CSE student at IES College of Technology (2027), skilled in Java, C++, HTML, CSS, JavaScript, React.js, Node.js, Express.js, and MongoDB. Interested in full-stack development, building projects, and learning new technologies.
+                  {t('about.exact_bio')}
                 </p>
               </div>
 

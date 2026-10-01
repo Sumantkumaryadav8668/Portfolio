@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Code, X } from 'lucide-react';
 import { skillCategories } from '../data/portfolioData';
+import { useLanguage } from '../context/LanguageContext';
 import { FaReact, FaNodeJs, FaJs, FaJava, FaPython, FaAws, FaDocker, FaGitAlt, FaHtml5, FaCss3Alt } from 'react-icons/fa';
 import { SiTypescript, SiTailwindcss, SiSocketdotio, SiMongodb, SiRedis, SiGithubactions, SiVite, SiLangchain, SiCplusplus, SiFramer, SiExpress } from 'react-icons/si';
 import { BiLogoPostgresql } from 'react-icons/bi';
@@ -42,6 +43,7 @@ const renderSkillIcon = (iconName: string) => {
 };
 
 export const SkillsSection: React.FC = () => {
+  const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
 
@@ -68,8 +70,8 @@ export const SkillsSection: React.FC = () => {
     <section id="skills" className="py-20 px-6 border-t border-slate-200/80 dark:border-slate-800/80 relative max-w-6xl mx-auto">
       {/* Section Heading */}
       <div className="flex flex-col space-y-3 mb-12 text-center">
-        <h2 className="text-xs uppercase tracking-widest font-extrabold text-blue-600 dark:text-blue-400">Skills</h2>
-        <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Core Competence Grid</p>
+        <h2 className="text-xs uppercase tracking-widest font-extrabold text-blue-600 dark:text-blue-400">{t('skills.heading_tag')}</h2>
+        <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">{t('skills.heading_title')}</p>
         <div className="w-12 h-1 bg-blue-600 dark:bg-blue-500 mx-auto rounded-full"></div>
       </div>
 
@@ -79,7 +81,7 @@ export const SkillsSection: React.FC = () => {
           <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
           <input
             type="text"
-            placeholder="Search skills (e.g. React, Java)..."
+            placeholder={t('skills.search_placeholder')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="input-field pl-10 pr-9 py-2.5 text-xs sm:text-sm"
@@ -107,7 +109,7 @@ export const SkillsSection: React.FC = () => {
                   : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:border-blue-500/40 shadow-sm'
               }`}
             >
-              {cat}
+              {cat === 'All' ? t('skills.all_category') : cat}
             </button>
           ))}
         </div>
@@ -151,7 +153,7 @@ export const SkillsSection: React.FC = () => {
                 <div className="mt-5 space-y-3">
                   <div className="space-y-1">
                     <div className="flex justify-between text-[10px]">
-                      <span className="text-slate-500 dark:text-slate-400">Proficiency</span>
+                      <span className="text-slate-500 dark:text-slate-400">{t('skills.proficiency')}</span>
                       <span className="text-blue-600 dark:text-blue-400 font-bold">{skill.level}%</span>
                     </div>
                     <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
@@ -168,7 +170,7 @@ export const SkillsSection: React.FC = () => {
                       ))}
                       {skill.projectsUsed.length > 2 && (
                         <span className="text-[9px] text-blue-600 dark:text-blue-400 font-bold px-1 py-0.5">
-                          +{skill.projectsUsed.length - 2} more
+                          +{skill.projectsUsed.length - 2} {t('skills.more_projects')}
                         </span>
                       )}
                     </div>
@@ -191,7 +193,7 @@ export const SkillsSection: React.FC = () => {
             <Search className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">No Skills Found</h3>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">{t('skills.no_skills_title')}</h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
               No skills match <span className="font-semibold text-blue-600 dark:text-blue-400">"{searchTerm}"</span>
               {selectedCategory !== 'All' && <span> in <span className="font-semibold text-slate-900 dark:text-white">{selectedCategory}</span></span>}.
@@ -201,7 +203,7 @@ export const SkillsSection: React.FC = () => {
             onClick={() => { setSearchTerm(''); setSelectedCategory('All'); }}
             className="btn-primary py-1.5 px-3 text-xs"
           >
-            Reset Search & Filters
+            {t('skills.reset_button')}
           </button>
         </motion.div>
       )}

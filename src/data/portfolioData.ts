@@ -563,8 +563,8 @@ export const chatbotKnowledge = {
       answer: "You can contact me via email at sumantkumaryadav526@gmail.com. You can also view my GitHub at github.com/sumant-yadav. For a 1-on-1 meeting, you can schedule a slot directly using the interactive calendar booking widget in the Contact section below!"
     },
     {
-      keywords: ['resume', 'cv', 'download', 'pdf'],
-      answer: "You can download my full engineering resume using the download button in the floating navigation header, or by clicking the 'Download Resume' CTA directly in the Hero banner of this page."
+      keywords: ['resume', 'cv', 'download', 'pdf', 'preview', 'view'],
+      answer: "You can view and preview my full engineering resume in a new browser tab by clicking the 'Resume' button in the navigation bar or in the Hero banner of this page."
     }
   ],
   fallback: "I'm not sure I got that. Could you try asking about 'Atmos Weather App', 'skills', 'education', 'achievements', 'certifications', or 'contact' details? Alternatively, you can use the quick-reply buttons below."

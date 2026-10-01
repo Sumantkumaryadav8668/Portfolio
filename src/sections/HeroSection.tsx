@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Download, Mail, Sparkles, Folder, Award, Code } from 'lucide-react';
+import { ArrowRight, FileText, Mail, Sparkles, Folder, Award, Code } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { SiLeetcode } from 'react-icons/si';
+import { useLanguage } from '../context/LanguageContext';
 
 export const HeroSection: React.FC = () => {
+  const { t } = useLanguage();
   const [titleIndex, setTitleIndex] = useState(0);
   const [displayText, setDisplayText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
@@ -70,7 +72,7 @@ export const HeroSection: React.FC = () => {
             className="inline-flex items-center space-x-2 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 rounded-full px-3.5 py-1.5 w-fit"
           >
             <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-            <span className="text-xs font-semibold text-blue-700 dark:text-blue-300 tracking-wide uppercase">Open for new roles</span>
+            <span className="text-xs font-semibold text-blue-700 dark:text-blue-300 tracking-wide uppercase">{t('hero.availability')}</span>
           </motion.div>
 
           <motion.div
@@ -80,10 +82,10 @@ export const HeroSection: React.FC = () => {
             className="space-y-2"
           >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-              Hi, I'm <span className="text-blue-600 dark:text-blue-400">Sumant Kumar Yadav</span>
+              {t('hero.greeting')} <span className="text-blue-600 dark:text-blue-400">{t('hero.name')}</span>
             </h1>
             <div className="h-10 sm:h-12 flex items-center">
-              <span className="text-xl sm:text-2xl font-bold text-slate-600 dark:text-slate-400">A dedicated </span>
+              <span className="text-xl sm:text-2xl font-bold text-slate-600 dark:text-slate-400">{t('hero.dedicated')}</span>
               <span className="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400 border-r-2 border-blue-600 dark:border-blue-400 ml-2 pr-1 animate-pulse">
                 {displayText}
               </span>
@@ -96,7 +98,7 @@ export const HeroSection: React.FC = () => {
             transition={{ duration: 0.4, delay: 0.2 }}
             className="text-base text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed"
           >
-            I build modern full-stack web applications using MongoDB, Express.js, React.js, and Node.js. Focused on clean architecture, responsive interfaces, and reliable REST APIs that deliver real impact.
+            {t('hero.bio')}
           </motion.p>
 
           <motion.div
@@ -109,22 +111,23 @@ export const HeroSection: React.FC = () => {
               onClick={() => scrollToSection('projects')}
               className="btn-primary"
             >
-              <span>View Projects</span>
+              <span>{t('hero.view_projects')}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
             <a
               href="/resume.pdf"
-              download="Sumant_Yadav_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-secondary"
             >
-              <Download className="w-4 h-4" />
-              <span>Resume</span>
+              <FileText className="w-4 h-4" />
+              <span>{t('nav.resume')}</span>
             </a>
             <button
               onClick={() => scrollToSection('contact')}
               className="btn-ghost text-blue-600 dark:text-blue-400"
             >
-              <span>Contact Me</span>
+              <span>{t('hero.contact_me')}</span>
             </button>
           </motion.div>
 
@@ -134,7 +137,7 @@ export const HeroSection: React.FC = () => {
             transition={{ duration: 0.4, delay: 0.4 }}
             className="flex items-center space-x-4 pt-4 text-slate-500 dark:text-slate-400"
           >
-            <span className="text-xs uppercase font-bold tracking-wider">Connect:</span>
+            <span className="text-xs uppercase font-bold tracking-wider">{t('hero.connect')}</span>
             <div className="flex space-x-2">
               {[
                 { icon: <FaGithub className="w-4 h-4" />, link: 'https://github.com/Sumantkumaryadav8668', label: 'GitHub' },
@@ -183,8 +186,8 @@ export const HeroSection: React.FC = () => {
                   <Folder className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold block">Featured Projects</span>
-                  <span className="text-sm font-bold text-slate-900 dark:text-white">4 Completed & Major</span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold block">{t('hero.featured_projects')}</span>
+                  <span className="text-sm font-bold text-slate-900 dark:text-white">{t('hero.projects_count')}</span>
                 </div>
               </div>
 
@@ -193,8 +196,8 @@ export const HeroSection: React.FC = () => {
                   <Award className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold block">Certifications</span>
-                  <span className="text-sm font-bold text-slate-900 dark:text-white">3 Verified</span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold block">{t('nav.certifications')}</span>
+                  <span className="text-sm font-bold text-slate-900 dark:text-white">{t('hero.verified_certs')}</span>
                 </div>
               </div>
 
@@ -203,14 +206,14 @@ export const HeroSection: React.FC = () => {
                   <Code className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold block">Coding Commits</span>
-                  <span className="text-sm font-bold text-slate-900 dark:text-white">300+ GitHub Commits</span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold block">{t('hero.coding_commits')}</span>
+                  <span className="text-sm font-bold text-slate-900 dark:text-white">{t('hero.commits_count')}</span>
                 </div>
               </div>
             </div>
 
             <div className="pt-2 border-t border-slate-100 dark:border-slate-800/80 text-[10px] text-slate-400 dark:text-slate-500 font-mono flex justify-between items-center">
-              <span>STATUS: ONLINE</span>
+              <span>{t('hero.status_online')}</span>
               <span>v2.0 PRO</span>
             </div>
           </motion.div>

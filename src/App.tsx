@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
+import { LanguageProvider } from './context/LanguageContext';
 import { Navbar } from './components/Navbar';
 import { SEO } from './components/SEO';
 import { HeroSection } from './sections/HeroSection';
@@ -18,58 +19,59 @@ const ContactSection = lazy(() => import('./sections/ContactSection').then(modul
 
 function App() {
   return (
-    <ThemeProvider>
-      <SEO
-        title="Sumant Kumar Yadav | Senior Frontend Engineer & Startup Lead"
-        description="Explore the premium developer portfolio of Sumant Kumar Yadav. Highlighting academic records, verified AWS cloud credentials, writing logs, and Atmos Weather App—our flagship real-time meteorology and climate analytics dashboard."
-        url="https://sumant.dev"
-      />
-      
-      <div className="relative min-h-screen text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-[#090d16] bg-grid-pattern select-none transition-colors duration-300">
+    <LanguageProvider>
+      <ThemeProvider>
+        <SEO
+          title="Sumant Kumar Yadav | MERN Stack Developer"
+          description="Explore the premium developer portfolio of Sumant Kumar Yadav. Highlighting academic records, verified certifications, and full-stack projects."
+          url="https://sumant.dev"
+        />
+        
+        <div className="relative min-h-screen text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-[#090d16] bg-grid-pattern select-none transition-colors duration-300">
+          <Navbar />
 
-        <Navbar />
+          <main className="relative z-10 w-full">
+            <HeroSection />
 
-        <main className="relative z-10 w-full">
-          <HeroSection />
+            <Suspense fallback={<SkeletonLoader />}>
+              <AboutSection />
+            </Suspense>
 
-          <Suspense fallback={<SkeletonLoader />}>
-            <AboutSection />
-          </Suspense>
+            <Suspense fallback={<SkeletonLoader />}>
+              <EducationSection />
+            </Suspense>
 
-          <Suspense fallback={<SkeletonLoader />}>
-            <EducationSection />
-          </Suspense>
+            <Suspense fallback={<SkeletonLoader />}>
+              <SkillsSection />
+            </Suspense>
 
-          <Suspense fallback={<SkeletonLoader />}>
-            <SkillsSection />
-          </Suspense>
+            <Suspense fallback={<SkeletonLoader />}>
+              <ProjectsSection />
+            </Suspense>
 
-          <Suspense fallback={<SkeletonLoader />}>
-            <ProjectsSection />
-          </Suspense>
+            <Suspense fallback={<SkeletonLoader />}>
+              <CertificationsSection />
+            </Suspense>
 
-          <Suspense fallback={<SkeletonLoader />}>
-            <CertificationsSection />
-          </Suspense>
+            <Suspense fallback={<SkeletonLoader />}>
+              <AchievementsSection />
+            </Suspense>
 
-          <Suspense fallback={<SkeletonLoader />}>
-            <AchievementsSection />
-          </Suspense>
+            <Suspense fallback={<SkeletonLoader />}>
+              <DashboardSection />
+            </Suspense>
 
-          <Suspense fallback={<SkeletonLoader />}>
-            <DashboardSection />
-          </Suspense>
+            <Suspense fallback={<SkeletonLoader />}>
+              <ContactSection />
+            </Suspense>
+          </main>
 
-          <Suspense fallback={<SkeletonLoader />}>
-            <ContactSection />
-          </Suspense>
-        </main>
+          <FooterSection />
 
-        <FooterSection />
-
-        <ChatbotWidget />
-      </div>
-    </ThemeProvider>
+          <ChatbotWidget />
+        </div>
+      </ThemeProvider>
+    </LanguageProvider>
   );
 }
 

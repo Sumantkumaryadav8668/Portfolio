@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { ArrowUp, Send, Mail } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
 export const FooterSection: React.FC = () => {
+  const { t } = useLanguage();
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
@@ -22,6 +24,14 @@ export const FooterSection: React.FC = () => {
     });
   };
 
+  const directoryItems = [
+    { key: 'nav.about', id: 'about' },
+    { key: 'nav.education', id: 'education' },
+    { key: 'nav.skills', id: 'skills' },
+    { key: 'nav.projects', id: 'projects' },
+    { key: 'nav.dashboard', id: 'dashboard' },
+  ];
+
   return (
     <footer className="border-t border-brand-border/60 bg-brand-bgSec/30 relative">
       <div className="max-w-7xl mx-auto px-6 py-12 md:py-16 space-y-12">
@@ -38,18 +48,18 @@ export const FooterSection: React.FC = () => {
           <div className="md:col-span-3 space-y-4">
             <h4 className="text-xs uppercase font-extrabold tracking-widest text-brand-text">Directory</h4>
             <ul className="space-y-2 text-xs text-brand-muted pl-0">
-              {['About', 'Education', 'Skills', 'Projects', 'Dashboard'].map((item) => (
-                <li key={item} className="list-none">
+              {directoryItems.map((item) => (
+                <li key={item.id} className="list-none">
                   <a
-                    href={`#${item.toLowerCase()}`}
+                    href={`#${item.id}`}
                     onClick={(e) => {
                       e.preventDefault();
-                      const el = document.getElementById(item.toLowerCase());
+                      const el = document.getElementById(item.id);
                       if (el) el.scrollIntoView({ behavior: 'smooth' });
                     }}
                     className="hover:text-brand-accent transition-colors"
                   >
-                    {item}
+                    {t(item.key)}
                   </a>
                 </li>
               ))}
@@ -95,7 +105,7 @@ export const FooterSection: React.FC = () => {
 
         <div className="pt-8 border-t border-brand-border/30 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-brand-muted">
-            &copy; {new Date().getFullYear()} Sumant Kumar Yadav. All rights reserved.
+            &copy; {new Date().getFullYear()} Sumant Kumar Yadav. {t('footer.rights')}
           </p>
 
           <div className="flex items-center space-x-6 text-brand-muted">
