@@ -34,7 +34,7 @@ export const FooterSection: React.FC = () => {
 
   return (
     <footer className="border-t border-brand-border/60 bg-brand-bgSec/30 relative">
-      <div className="max-w-7xl mx-auto px-6 py-12 md:py-16 space-y-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-16 space-y-12">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
           <div className="md:col-span-5 space-y-4">
             <h3 className="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-brand-primary to-brand-accent bg-clip-text text-transparent w-fit">

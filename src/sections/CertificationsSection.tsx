@@ -8,10 +8,10 @@ export const CertificationsSection: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <section id="certifications" className="py-20 px-6 border-t border-slate-200/80 dark:border-slate-800/80 relative max-w-6xl mx-auto">
-      <div className="flex flex-col space-y-3 mb-12 text-center">
+    <section id="certifications" className="py-16 sm:py-20 px-4 sm:px-6 border-t border-slate-200/80 dark:border-slate-800/80 relative max-w-6xl mx-auto w-full">
+      <div className="flex flex-col space-y-3 mb-10 sm:mb-12 text-center">
         <h2 className="text-xs uppercase tracking-widest font-extrabold text-blue-600 dark:text-blue-400">{t('certifications.heading_tag')}</h2>
-        <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">{t('certifications.heading_title')}</p>
+        <p className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">{t('certifications.heading_title')}</p>
         <div className="w-12 h-1 bg-blue-600 dark:bg-blue-500 mx-auto rounded-full"></div>
       </div>
 

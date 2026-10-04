@@ -90,15 +90,15 @@ export const DashboardSection: React.FC = () => {
     : [];
 
   return (
-    <section id="dashboard" className="py-20 px-6 border-t border-slate-200/80 dark:border-slate-800/80 relative max-w-6xl mx-auto">
-      <div className="flex flex-col space-y-3 mb-12 text-center">
+    <section id="dashboard" className="py-16 sm:py-20 px-4 sm:px-6 border-t border-slate-200/80 dark:border-slate-800/80 relative max-w-6xl mx-auto w-full">
+      <div className="flex flex-col space-y-3 mb-10 sm:mb-12 text-center">
         <h2 className="text-xs uppercase tracking-widest font-extrabold text-blue-600 dark:text-blue-400">{t('dashboard.heading_tag')}</h2>
-        <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">{t('dashboard.heading_title')}</p>
+        <p className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">{t('dashboard.heading_title')}</p>
         <div className="w-12 h-1 bg-blue-600 dark:bg-blue-500 mx-auto rounded-full"></div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <div className="lg:col-span-8 card card-elevated p-6 space-y-5">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full">
+        <div className="lg:col-span-8 card card-elevated p-4 sm:p-6 space-y-5 w-full">
           <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/50 flex items-center justify-center text-emerald-600 dark:text-emerald-400">

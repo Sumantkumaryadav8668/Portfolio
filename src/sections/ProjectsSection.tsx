@@ -20,41 +20,41 @@ export const ProjectsSection: React.FC = () => {
   const activeProjectForModal = projectsData.find((p) => p.id === selectedProjectId);
 
   return (
-    <section id="projects" className="py-20 px-6 border-t border-slate-200/80 dark:border-slate-800/80 relative max-w-6xl mx-auto space-y-10">
+    <section id="projects" className="py-16 sm:py-20 px-4 sm:px-6 border-t border-slate-200/80 dark:border-slate-800/80 relative max-w-6xl mx-auto space-y-8 sm:space-y-10 w-full">
       {/* SECTION HEADER & CATEGORY SELECTOR */}
       <div className="flex flex-col space-y-3 text-center">
-        <div className="inline-flex items-center space-x-2 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 rounded-full px-3.5 py-1.5 w-fit mx-auto text-blue-600 dark:text-blue-400 font-bold text-xs uppercase tracking-widest">
-          <Sparkles className="w-3.5 h-3.5 mr-1" />
-          {t('projects.heading_tag')}
+        <div className="inline-flex items-center space-x-2 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 rounded-full px-3.5 py-1.5 w-fit mx-auto text-blue-600 dark:text-blue-400 font-bold text-xs uppercase tracking-widest max-w-full">
+          <Sparkles className="w-3.5 h-3.5 mr-1 flex-shrink-0" />
+          <span className="truncate">{t('projects.heading_tag')}</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">{t('projects.heading_title')}</h2>
+        <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">{t('projects.heading_title')}</h2>
         <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
           {t('projects.sub_desc')}
         </p>
 
         {/* Category Selector Tabs */}
-        <div className="flex justify-center items-center gap-3 pt-2">
+        <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-3 pt-2 w-full">
           <button
             onClick={() => setActiveCategory('major')}
-            className={`px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer flex items-center space-x-2 border ${
+            className={`px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer flex items-center space-x-1.5 sm:space-x-2 border ${
               activeCategory === 'major'
                 ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
                 : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-800 hover:text-slate-900 dark:hover:text-white hover:border-blue-500/40'
             }`}
           >
-            <Sparkles className="w-4 h-4" />
+            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <span>{t('projects.major_tab')}</span>
           </button>
 
           <button
             onClick={() => setActiveCategory('minor')}
-            className={`px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer flex items-center space-x-2 border ${
+            className={`px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer flex items-center space-x-1.5 sm:space-x-2 border ${
               activeCategory === 'minor'
                 ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
                 : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-800 hover:text-slate-900 dark:hover:text-white hover:border-blue-500/40'
             }`}
           >
-            <Layers className="w-4 h-4" />
+            <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <span>{t('projects.minor_tab')}</span>
           </button>
         </div>
@@ -77,7 +77,7 @@ export const ProjectsSection: React.FC = () => {
               return (
                 <div
                   key={heroProject.id}
-                  className="card card-elevated card-hover p-6 sm:p-8 relative overflow-hidden"
+                  className="card card-elevated card-hover p-4 sm:p-8 relative overflow-hidden w-full"
                 >
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative z-10">
                     <div className="lg:col-span-8 space-y-5">

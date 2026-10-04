@@ -60,33 +60,33 @@ export const HeroSection: React.FC = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-[85vh] flex items-center justify-center pt-20 pb-16 px-6 max-w-6xl mx-auto"
+      className="relative min-h-[85vh] flex items-center justify-center pt-16 sm:pt-20 pb-16 px-4 sm:px-6 max-w-6xl mx-auto w-full"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 w-full items-center">
         {/* Left Content Column */}
-        <div className="lg:col-span-7 flex flex-col space-y-6 text-left">
+        <div className="lg:col-span-7 flex flex-col space-y-6 text-left w-full">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="inline-flex items-center space-x-2 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 rounded-full px-3.5 py-1.5 w-fit"
+            className="inline-flex items-center space-x-2 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 rounded-full px-3.5 py-1.5 w-fit max-w-full"
           >
-            <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-            <span className="text-xs font-semibold text-blue-700 dark:text-blue-300 tracking-wide uppercase">{t('hero.availability')}</span>
+            <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0" />
+            <span className="text-xs font-semibold text-blue-700 dark:text-blue-300 tracking-wide uppercase truncate">{t('hero.availability')}</span>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.1 }}
-            className="space-y-2"
+            className="space-y-2 w-full"
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white break-words">
               {t('hero.greeting')} <span className="text-blue-600 dark:text-blue-400">{t('hero.name')}</span>
             </h1>
-            <div className="h-10 sm:h-12 flex items-center">
-              <span className="text-xl sm:text-2xl font-bold text-slate-600 dark:text-slate-400">{t('hero.dedicated')}</span>
-              <span className="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400 border-r-2 border-blue-600 dark:border-blue-400 ml-2 pr-1 animate-pulse">
+            <div className="min-h-[2.5rem] flex flex-wrap items-center">
+              <span className="text-lg sm:text-2xl font-bold text-slate-600 dark:text-slate-400">{t('hero.dedicated')}</span>
+              <span className="text-lg sm:text-2xl font-bold text-blue-600 dark:text-blue-400 border-r-2 border-blue-600 dark:border-blue-400 ml-2 pr-1 animate-pulse">
                 {displayText}
               </span>
             </div>
@@ -96,7 +96,7 @@ export const HeroSection: React.FC = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.2 }}
-            className="text-base text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed"
+            className="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed"
           >
             {t('hero.bio')}
           </motion.p>
@@ -105,7 +105,7 @@ export const HeroSection: React.FC = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.3 }}
-            className="flex flex-wrap gap-3 pt-2"
+            className="flex flex-wrap gap-2.5 sm:gap-3 pt-2"
           >
             <button
               onClick={() => scrollToSection('projects')}
@@ -135,7 +135,7 @@ export const HeroSection: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.4 }}
-            className="flex items-center space-x-4 pt-4 text-slate-500 dark:text-slate-400"
+            className="flex flex-wrap items-center gap-3 pt-4 text-slate-500 dark:text-slate-400"
           >
             <span className="text-xs uppercase font-bold tracking-wider">{t('hero.connect')}</span>
             <div className="flex space-x-2">
@@ -161,12 +161,12 @@ export const HeroSection: React.FC = () => {
         </div>
 
         {/* Right Product UI Card Column */}
-        <div className="lg:col-span-5 flex justify-center items-center">
+        <div className="lg:col-span-5 flex justify-center items-center w-full">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="w-full max-w-sm card card-elevated card-hover p-6 flex flex-col justify-between space-y-6"
+            className="w-full max-w-sm card card-elevated card-hover p-4 sm:p-6 flex flex-col justify-between space-y-6"
           >
             <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800/80 pb-3">
               <div className="flex space-x-1.5">

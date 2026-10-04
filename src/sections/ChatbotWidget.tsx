@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Send, Bot, User } from 'lucide-react';
+import { MessageCircle, X, Send, Bot, User } from 'lucide-react';
 import { queryPortfolioAI } from '../utils/portfolioAI';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -65,15 +65,19 @@ export const ChatbotWidget: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    <div className="fixed bottom-[calc(80px+env(safe-area-inset-bottom,0px))] right-4 sm:right-5 z-50 flex flex-col-reverse items-end">
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        whileHover={{ scale: 1.05 }}
+        whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
-        className="w-13 h-13 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-md hover:bg-blue-700 transition-all cursor-pointer border-0"
+        className="w-12 h-12 sm:w-[52px] sm:h-[52px] rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center shadow-lg hover:shadow-xl transition-all cursor-pointer border-0 p-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:ring-offset-2 dark:focus:ring-offset-slate-900 z-50 flex-shrink-0"
         aria-label="Open Portfolio Assistant Widget"
       >
-        {isOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
+        {isOpen ? (
+          <X className="w-6 h-6 text-white flex-shrink-0" />
+        ) : (
+          <MessageCircle className="w-6 h-6 text-white flex-shrink-0" />
+        )}
       </motion.button>
 
       <AnimatePresence>
@@ -83,7 +87,7 @@ export const ChatbotWidget: React.FC = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
             transition={{ duration: 0.2 }}
-            className="w-80 sm:w-96 h-[460px] card card-elevated shadow-xl flex flex-col overflow-hidden mb-3 relative z-10"
+            className="w-[calc(100vw-2rem)] max-w-sm sm:w-96 h-[460px] max-h-[75vh] card card-elevated shadow-xl flex flex-col overflow-hidden mb-3 relative z-10"
           >
             {/* Header */}
             <div className="bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-800 p-3.5 flex items-center justify-between">

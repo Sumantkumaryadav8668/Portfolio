@@ -69,16 +69,16 @@ export const AchievementsSection: React.FC = () => {
     : [];
 
   return (
-    <section id="achievements" className="py-20 px-6 border-t border-slate-200/80 dark:border-slate-800/80 relative max-w-6xl mx-auto">
-      <div className="flex flex-col space-y-3 mb-12 text-center">
+    <section id="achievements" className="py-16 sm:py-20 px-4 sm:px-6 border-t border-slate-200/80 dark:border-slate-800/80 relative max-w-6xl mx-auto w-full">
+      <div className="flex flex-col space-y-3 mb-10 sm:mb-12 text-center">
         <h2 className="text-xs uppercase tracking-widest font-extrabold text-blue-600 dark:text-blue-400">{t('achievements.heading_tag')}</h2>
-        <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">{t('achievements.heading_title')}</p>
+        <p className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">{t('achievements.heading_title')}</p>
         <div className="w-12 h-1 bg-blue-600 dark:bg-blue-500 mx-auto rounded-full"></div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start w-full">
         {/* LeetCode & Competitive Coding Card */}
-        <div className="lg:col-span-6 card card-elevated p-6 space-y-5">
+        <div className="lg:col-span-6 card card-elevated p-4 sm:p-6 space-y-5 w-full">
           <div className="flex items-center space-x-3 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200/80 dark:border-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-400">
               <Code className="w-5 h-5" />
@@ -144,7 +144,7 @@ export const AchievementsSection: React.FC = () => {
                     );
                   })}
 
-                  <div className="grid grid-cols-4 gap-2 pt-2.5 mt-2.5 border-t border-slate-200 dark:border-slate-700 text-center">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2.5 mt-2.5 border-t border-slate-200 dark:border-slate-700 text-center">
                     <div className="bg-white dark:bg-slate-800 p-1.5 rounded-lg border border-slate-200/60 dark:border-slate-700">
                       <span className="text-[9px] text-slate-500 dark:text-slate-400 uppercase font-bold block">Submissions</span>
                       <span className="text-xs font-extrabold text-slate-900 dark:text-white">{leetcodeData.totalSubmissions}</span>

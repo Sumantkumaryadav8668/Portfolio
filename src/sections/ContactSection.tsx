@@ -83,7 +83,7 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-20 px-6 border-t border-slate-200/80 dark:border-slate-800/80 relative max-w-6xl mx-auto">
+    <section id="contact" className="py-16 sm:py-20 px-4 sm:px-6 border-t border-slate-200/80 dark:border-slate-800/80 relative max-w-6xl mx-auto">
       <div className="flex flex-col space-y-3 mb-12 text-center">
         <h2 className="text-xs uppercase tracking-widest font-extrabold text-blue-600 dark:text-blue-400">{t('contact.heading_tag')}</h2>
         <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">{t('contact.heading_title')}</p>
@@ -125,7 +125,7 @@ export const ContactSection: React.FC = () => {
           </div>
 
           {/* Contact Form */}
-          <form onSubmit={handleSubmit} className="card card-elevated p-6 space-y-4">
+          <form onSubmit={handleSubmit} className="card card-elevated p-4 sm:p-6 space-y-4">
             <h4 className="text-base font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-2">{t('contact.form_title')}</h4>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -248,7 +248,7 @@ export const ContactSection: React.FC = () => {
         </div>
 
         {/* Right Column - 30-Minute Intro Call Booking Widget */}
-        <div className="lg:col-span-5 card card-elevated p-6 space-y-6">
+        <div className="lg:col-span-5 card card-elevated p-4 sm:p-6 space-y-6">
           <div className="flex items-center space-x-3 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200/80 dark:border-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-400">
               <CalendarIcon className="w-5 h-5" />
@@ -262,7 +262,7 @@ export const ContactSection: React.FC = () => {
           {bookingStep === 'date' && (
             <div className="space-y-4">
               <span className="text-xs font-bold text-slate-700 dark:text-slate-300 block">Select an available date:</span>
-              <div className="grid grid-cols-5 gap-2">
+              <div className="grid grid-cols-5 gap-1.5 sm:gap-2">
                 {availableDates.map((item) => (
                   <button
                     key={item.date}
@@ -270,14 +270,14 @@ export const ContactSection: React.FC = () => {
                       setSelectedDate(item.date);
                       setBookingStep('time');
                     }}
-                    className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
+                    className={`p-1.5 sm:p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
                       selectedDate === item.date
                         ? 'bg-blue-600 border-blue-600 text-white font-bold'
                         : 'bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-blue-500/50'
                     }`}
                   >
-                    <span className="text-[10px] uppercase block font-bold text-slate-400 dark:text-slate-500">{item.day}</span>
-                    <span className="text-sm font-extrabold">{item.date}</span>
+                    <span className="text-[9px] sm:text-[10px] uppercase block font-bold text-slate-400 dark:text-slate-500">{item.day}</span>
+                    <span className="text-xs sm:text-sm font-extrabold">{item.date}</span>
                   </button>
                 ))}
               </div>
