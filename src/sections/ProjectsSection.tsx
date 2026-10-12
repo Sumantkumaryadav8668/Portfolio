@@ -8,10 +8,10 @@ import { useLanguage } from '../context/LanguageContext';
 export const ProjectsSection: React.FC = () => {
   const { t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState<'major' | 'minor'>('major');
-  const [heroActiveTab, setHeroActiveTab] = useState<'overview' | 'architecture' | 'solutions' | 'casestudy'>('overview');
+  const [heroActiveTabs, setHeroActiveTabs] = useState<Record<string, 'overview' | 'architecture' | 'solutions' | 'casestudy'>>({});
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const [modalActiveTab, setModalActiveTab] = useState<'overview' | 'architecture' | 'solutions' | 'casestudy'>('overview');
-  const [featuredActiveImg, setFeaturedActiveImg] = useState<string | null>(null);
+  const [featuredActiveImgs, setFeaturedActiveImgs] = useState<Record<string, string>>({});
   const [modalActiveImg, setModalActiveImg] = useState<string | null>(null);
 
   const majorProjects = projectsData.filter((p) => p.category === 'major' || p.featured);
@@ -74,6 +74,9 @@ export const ProjectsSection: React.FC = () => {
             className="space-y-10"
           >
             {majorProjects.map((heroProject) => {
+              const currentTab = heroActiveTabs[heroProject.id] || 'overview';
+              const currentImg = featuredActiveImgs[heroProject.id] || heroProject.image;
+
               return (
                 <div
                   key={heroProject.id}
@@ -117,14 +120,14 @@ export const ProjectsSection: React.FC = () => {
                         ].map((tab) => (
                           <button
                             key={tab.id}
-                            onClick={() => setHeroActiveTab(tab.id as any)}
+                            onClick={() => setHeroActiveTabs((prev) => ({ ...prev, [heroProject.id]: tab.id as any }))}
                             className={`text-xs font-bold pb-2 cursor-pointer transition-colors whitespace-nowrap focus:outline-none relative bg-transparent border-0 ${
-                              heroActiveTab === tab.id ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                              currentTab === tab.id ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                             }`}
                           >
                             {tab.label}
-                            {heroActiveTab === tab.id && (
-                              <motion.div layoutId="heroTabIndicator" className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 dark:bg-blue-400" />
+                            {currentTab === tab.id && (
+                              <motion.div layoutId={`heroTabIndicator-${heroProject.id}`} className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 dark:bg-blue-400" />
                             )}
                           </button>
                         ))}
@@ -132,7 +135,7 @@ export const ProjectsSection: React.FC = () => {
 
                       <div className="min-h-[140px] text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                         <AnimatePresence mode="wait">
-                          {heroActiveTab === 'overview' && (
+                          {currentTab === 'overview' && (
                             <motion.div
                               key="overview"
                               initial={{ opacity: 0, y: 5 }}
@@ -155,7 +158,7 @@ export const ProjectsSection: React.FC = () => {
                             </motion.div>
                           )}
 
-                          {heroActiveTab === 'architecture' && (
+                          {currentTab === 'architecture' && (
                             <motion.div
                               key="architecture"
                               initial={{ opacity: 0, y: 5 }}
@@ -171,7 +174,7 @@ export const ProjectsSection: React.FC = () => {
                             </motion.div>
                           )}
 
-                          {heroActiveTab === 'solutions' && (
+                          {currentTab === 'solutions' && (
                             <motion.div
                               key="solutions"
                               initial={{ opacity: 0, y: 5 }}
@@ -197,7 +200,7 @@ export const ProjectsSection: React.FC = () => {
                             </motion.div>
                           )}
 
-                          {heroActiveTab === 'casestudy' && (
+                          {currentTab === 'casestudy' && (
                             <motion.div
                               key="casestudy"
                               initial={{ opacity: 0, y: 5 }}
@@ -261,7 +264,7 @@ export const ProjectsSection: React.FC = () => {
                     <div className="lg:col-span-4 space-y-3">
                       <div className="relative overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
                         <img
-                          src={featuredActiveImg || heroProject.image}
+                          src={currentImg}
                           alt={`${heroProject.title} interface display`}
                           className="w-full object-cover aspect-video hover:scale-102 transition-transform duration-300"
                         />
@@ -270,9 +273,9 @@ export const ProjectsSection: React.FC = () => {
                       {heroProject.gallery && heroProject.gallery.length > 0 && (
                         <div className="grid grid-cols-4 gap-2">
                           <div
-                            onClick={() => setFeaturedActiveImg(heroProject.image)}
+                            onClick={() => setFeaturedActiveImgs((prev) => ({ ...prev, [heroProject.id]: heroProject.image }))}
                             className={`rounded-lg overflow-hidden border aspect-video cursor-pointer transition-all ${
-                              (featuredActiveImg === null || featuredActiveImg === heroProject.image)
+                              currentImg === heroProject.image
                                 ? 'border-blue-600 scale-95 shadow-sm'
                                 : 'border-slate-200 dark:border-slate-800 opacity-70 hover:opacity-100'
                             }`}
@@ -282,9 +285,9 @@ export const ProjectsSection: React.FC = () => {
                           {heroProject.gallery.map((img, idx) => (
                             <div
                               key={idx}
-                              onClick={() => setFeaturedActiveImg(img)}
+                              onClick={() => setFeaturedActiveImgs((prev) => ({ ...prev, [heroProject.id]: img }))}
                               className={`rounded-lg overflow-hidden border aspect-video cursor-pointer transition-all ${
-                                featuredActiveImg === img
+                                currentImg === img
                                   ? 'border-blue-600 scale-95 shadow-sm'
                                   : 'border-slate-200 dark:border-slate-800 opacity-70 hover:opacity-100'
                               }`}

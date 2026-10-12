@@ -209,33 +209,51 @@ export const skillCategories: SkillCategory[] = [
 
 export const projectsData: Project[] = [
   {
-    id: 'save-life-sdec',
-    title: 'Save Life / Smart Disaster & Emergency Connector',
-    subtitle: 'Smart Emergency & Disaster Coordination Platform',
-    description: 'A full-stack emergency response and disaster management system built with React, Node.js, Express, and MongoDB, featuring real-time SOS alerts and emergency dispatch coordination.',
-    longDescription: 'Save Life / SDEC is a smart emergency response and disaster management system designed to coordinate real-time SOS alerts, emergency responder dispatch, and location notifications during critical events.',
+    id: 'store-management',
+    title: 'Store Management',
+    subtitle: 'Full-Stack Store Management Application',
+    description: 'A full-stack Store Management application built with React, Node.js, Express.js, and MySQL. It includes role-based authentication for Admins, Store Owners, and Normal Users, store management, ratings, search, sorting, pagination, and protected dashboards.',
+    longDescription: 'A full-stack Store Management application built with React, Node.js, Express.js, and MySQL. It includes role-based authentication for Admins, Store Owners, and Normal Users, store management, ratings, search, sorting, pagination, and protected dashboards.',
     featured: true,
     category: 'major',
-    status: 'COMPLETED (SIH WINNER)',
-    image: 'https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=800&q=80',
-    tags: ['React', 'Node.js', 'Express.js', 'MongoDB', 'WebSockets', 'SOS Alerts'],
-    githubUrl: 'https://github.com/Sumantkumaryadav8668/Hackathons',
-    liveUrl: '',
-    architecture: 'Full-stack MERN emergency architecture featuring real-time socket communication, Geo-JSON location index maps, and Express notification API handlers.',
+    status: 'COMPLETED',
+    image: '/store_management.jpg',
+    tags: ['React', 'Node.js', 'Express.js', 'MySQL', 'JWT', 'RBAC', 'REST API', 'ES Modules'],
+    githubUrl: 'https://github.com/Sumantkumaryadav8668/Roxiler_full-stack',
+    liveUrl: 'https://roxiler-store.vercel.app/login',
+    architecture: 'The backend follows a modular structure with separate config, controllers, middleware, models, routes, utilities, validators, scripts, and tests folders. It uses ES Modules with import and export, and separates Express app configuration from HTTP server startup.',
     responsibilities: [
-      'Engineered real-time SOS trigger API endpoints in Express.js with Geo-JSON payload validation.',
-      'Designed responsive emergency dashboard UI in React for instant responder status toggling.',
-      'Configured MongoDB geo-spatial queries to map nearest emergency response centers.'
+      'Role-based authentication and authorization (Admin, Store Owner, Normal User).',
+      'Admin dashboard with statistics and user/store management.',
+      'Store ratings from 1 to 5 with rating modification and duplicate-rating prevention.',
+      'Search, sorting, and pagination.',
+      'Secure JWT authentication and protected routes.',
+      'Password visibility toggle on relevant forms.',
+      'Structured backend using ES Modules and separation of concerns.',
+      'Database integrity and safe seeding practices.',
+      'Automated API testing with 22/22 tests passing in the reported test run.'
     ],
-    challenges: 'Ensuring low-latency emergency notification delivery during simulated network congestion.',
-    solutions: 'Implemented lightweight WebSocket fallback polling and optimized MongoDB indexing strategies.',
+    challenges: 'Handling multi-tier role authorization across Admins, Store Owners, and Normal Users while maintaining store rating integrity and duplicate-rating prevention.',
+    solutions: 'Implemented structured ES Module middleware for token authentication and permission verification, combined with database constraints and transactional rating logic.',
     metrics: [
-      { label: 'Award', value: 'SIH Winner' },
-      { label: 'Stack', value: 'MERN Full-Stack' },
-      { label: 'Latency', value: '< 200ms Alerts' }
+      { label: 'API Testing', value: '22/22 Passed' },
+      { label: 'Database', value: 'MySQL' },
+      { label: 'Authentication', value: 'Role-Based JWT' },
+      { label: 'Store Ratings', value: '1 to 5 Stars' }
     ],
     gallery: [],
-    caseStudy: '### Save Life / SDEC Overview\n\nSmart Disaster & Emergency Connector System developed for emergency coordination.'
+    caseStudy: `### Store Management Overview
+
+A full-stack Store Management application built with React, Node.js, Express.js, and MySQL. It includes role-based authentication for Admins, Store Owners, and Normal Users, store management, ratings, search, sorting, pagination, and protected dashboards.
+
+#### Key Features
+- **Role-based Authentication & Authorization**: Granular access control for Admins, Store Owners, and Normal Users with secure JWT authentication and protected routes.
+- **Admin Dashboard**: Centralized management panel with system statistics and user/store administrative tools.
+- **Store Ratings Engine**: 1 to 5 star rating system with rating modification support and duplicate-rating prevention.
+- **Search, Sorting & Pagination**: Robust server-side and client-side handling for store listings and catalog discovery.
+- **Form Security & Usability**: Password visibility toggles on relevant authentication and registration forms.
+- **Modular Backend Architecture**: Backend structured with ES Modules (\`import\`/\`export\`) separating Express configuration from HTTP server startup across config, controllers, middleware, models, routes, utilities, validators, scripts, and tests folders.
+- **Database Integrity & Testing**: Safe database seeding practices with automated API testing achieving 22/22 tests passing.`
   },
   {
     id: 'ecommerce-platform',
@@ -248,8 +266,8 @@ export const projectsData: Project[] = [
     status: 'IN DEVELOPMENT',
     image: 'https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&w=800&q=80',
     tags: ['React', 'JavaScript', 'Node.js', 'Express.js', 'MongoDB', 'Mongoose', 'JWT', 'Axios'],
-    githubUrl: '',
-    liveUrl: '',
+    githubUrl: 'https://github.com/Sumantkumaryadav8668/Hackathons/tree/main/E_Commerse',
+    liveUrl: 'https://ecommerce-minishop.vercel.app/',
     architecture: 'Full-stack MERN (MongoDB, Express, React, Node.js) architecture featuring JWT user authentication middleware, Express REST APIs, Mongoose database models, and React state-managed shopping cart logic.',
     responsibilities: [
       'Developed RESTful API endpoints in Express.js for user signup, user login, user logout, and user profile management.',
